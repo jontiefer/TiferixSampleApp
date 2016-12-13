@@ -1,0 +1,427 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Tiferix.Json.Data</name>
+    </assembly>
+    <members>
+        <member name="T:Tiferix.Json.Data.JsonDataSetParser">
+            <summary>
+            The JsonDataSetParser class parses a Tiferix JsonDataSet data file that matches the schema of an ADO.NET DataSet object.  All data in the
+            DataSet file, including each DataTable will be parsed from the JsonDataSet data file and loaded into the matching table in the DataSet.    
+            </summary>
+        </member>
+        <member name="M:Tiferix.Json.Data.JsonDataSetParser.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:Tiferix.Json.Data.JsonDataSetParser.#ctor(System.Data.DataSet)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="dsDataSet">The ADO.NET DataSet object that will be loaded from the JsonDataSet data file.  All schema must be loaded in
+            the DataSet before parsing the JsonDataSet data file into the DataSet object.</param>
+        </member>
+        <member name="M:Tiferix.Json.Data.JsonDataSetParser.#ctor(System.Data.DataTable)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="dtTable">The ADO.NET DataTable object that will be loaded from the JsonDataSet data file.  All schema must be loaded in
+            the DataTable before parsing the JsonDataSet data file into the DataTable object.</param>
+        </member>
+        <member name="M:Tiferix.Json.Data.JsonDataSetParser.Dispose">
+            <summary>
+            Public implementation of Dispose pattern callable by consumers.
+            </summary>
+        </member>
+        <member name="M:Tiferix.Json.Data.JsonDataSetParser.Dispose(System.Boolean)">
+            <summary>
+            Protected implementation of Dispose pattern.
+            </summary>
+            <param name="disposing"></param>
+        </member>
+        <member name="M:Tiferix.Json.Data.JsonDataSetParser.Finalize">
+            <summary>
+            Destructor
+            </summary>
+        </member>
+        <member name="P:Tiferix.Json.Data.JsonDataSetParser.DataSource">
+            <summary>
+            The ADO.NET DataSource object that will be loaded from the JsonDataSet data file.  All schema must be loaded in the DataSource before 
+            parsing the JsonDataSet data file into the DataSet or DataTable object.  Either a DataSet or DataTable can be directly linked and loaded 
+            from the JsonDataSet parser class.
+            </summary>
+        </member>
+        <member name="M:Tiferix.Json.Data.JsonDataSetParser.ParseJsonData(System.IO.Stream,System.Text.Encoding)">
+            <summary>
+            Parses a stream of data linked to a Tiferix JsonDataSet data file and reads the data from the stream into the DataSet object linked to the 
+            JsonDataSetParser class.  
+            </summary>
+            <param name="streamData">Stream pointing to JsonDataSet data.</param>
+            <param name="encoding">Encoding of JsonDataSet data stream.  Default is UTF8.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiferix.Json.Data.JsonDataSetParser.ParseJsonData(System.String,System.Text.Encoding)">
+            <summary>
+            Parses the Tiferix JsonDataSet data file specified in the function and reads the data into the DataSet object linked to the 
+            JsonDataSetParser class.  
+            </summary>
+            <param name="strFileName">The full name and path of the JsonDataSet data file.</param>
+            <param name="encoding">Encoding of JsonDataSet data file.  Default is UTF8.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiferix.Json.Data.JsonDataSetParser.ParseJsonTable(System.Data.DataTable,System.Int32@)">
+            <summary>
+            An internal version of the ParseJsonTable function that parses the current DataTable of the JsonDataSet data file/stream being parsed by the 
+            JsonDataSetParser class.  When a JsonDataSet DataSet or invididual DataTable is parsed, the current table in the Json DataSet file will 
+            be parsed and extracted by this function into the appropriate DataTable object specified in the function's parameter.  The schema of the 
+            DataTable must be set before parsing data from the JsonDataSet data file/stream.
+            </summary>
+            <param name="dtTable">Schema filled DataTable to be loaded with parsed data from JsonDataSet data.</param>
+            <param name="iCurParseIndex">The current index of the JsonDataSet data stream being parsed.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiferix.Json.Data.JsonDataSetParser.ParseJsonTable(System.IO.Stream,System.Text.Encoding)">
+            <summary>
+            Parses a stream of data linked to a Tiferix JsonDataSet data file containing only a single table record and reads the data from the stream into 
+            the DataTable object linked to the JsonDataSetParser class.  
+            </summary>
+            <param name="streamData">Stream pointing to JsonDataSet data.</param>
+            <param name="encoding">Encoding of JsonDataSet data stream.  Default is UTF8.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiferix.Json.Data.JsonDataSetParser.ParseJsonTable(System.String,System.Text.Encoding)">
+            <summary>
+            Parses a Tiferix JsonDataSet data file containing only a single table record and reads the data from the file into 
+            the DataTable object linked to the JsonDataSetParser class.  
+            </summary>
+            <param name="strFileName">The full name and path of the JsonDataSet data file.</param>
+            <param name="encoding">Encoding of JsonDataSet data file.  Default is UTF8.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiferix.Json.Data.JsonDataSetParser.ParseJsonRecord(System.Data.DataTable,System.Int32@)">
+            <summary>
+            Parses the current record of a DataTable in the JsonDataSet data stream being parsed by the JsonDataSetParser class.  Each time a new 
+            record is detected in the data stream, the ParseJsonRecord function will be called to parse the record from the current table in the JsonDataSet 
+            data stream and extract the data into a row in the DataTable object passed to the function.  
+            </summary>
+            <param name="dtTable">Schema filled DataTable to be loaded with parsed data from JsonDataSet data.</param>
+            <param name="iCurParseIndex">The current index of the JsonDataSet data stream being parsed.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiferix.Json.Data.JsonDataSetParser.ParseJsonField(System.Data.DataTable,System.Data.DataRow,System.Int32@)">
+            <summary>
+            Parses the current field of the current record of a DataTable in the JsonDataSet data stream being parsed by the JsonDataSetParser class. 
+            This function will be called to parse and extract the data from each field of each record being parsed by the class.  The ParseJsonField 
+            will be called to prase every field detected for the record and extract the data into the DataRow object passed to the function which 
+            will then be added to the DataTable in the ParseJsonRecord function. 
+            </summary>
+            <param name="dtTable">Schema filled DataTable to be loaded with parsed data from JsonDataSet data.</param>
+            <param name="rowData">DataRow that will be loaded with parsed field data from the JsonDataSet data.</param>
+            <param name="iCurParseIndex">The current index of the JsonDataSet data stream being parsed.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiferix.Json.Data.JsonDataSetParser.GetFieldValue(System.Type,System.Int32@)">
+            <summary>
+            Parses the data stored for the current field of the current record of the DataTable in the JsonDataSet data stream being parsed by the
+            JsonDataSetParser class.   The function will parse the data string stored in the appropriate format in the JsonDataSet data file and extract 
+            it into the appropriate .Net data type based on the .Net data type specified in the function's parameter (which should match that of the 
+            DataTable column being loaded).   All types of data will be processed and appropriately converted, including null values, escape characters, 
+            numeric, string, date/time and binary values.
+            </summary>
+            <param name="dataType">The .Net Data Type of the field to be extracted from the JsonDataSet data.</param>
+            <param name="iCurParseIndex">The current index of the JsonDataSet data stream being parsed.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiferix.Json.Data.JsonDataSetParser.MoveNextRecord(System.Int32@)">
+            <summary>
+            Scans the JsonDataSet data stream for the next record block of the parent object block being parsed, whether it be a table, record or field of a record.        
+            Because Json files are stored in a hierarchical structure, the parsing operation will parse each set of object blocks at the current level and 
+            treat them as invidividual records of the parent object block.  When the next record block of the parent object block is detected, the function 
+            will return true.  If the final record has been reached in the set of records of the parent object block, then the function will return false. The 
+            current parsing index will be advanced to either the next record or to past the last position of the parent object block, which will be positioned 
+            at the next parent record.  An example can be positioning the parser at the next table record after the final row of the table has been detected.
+            </summary>
+            <param name="iCurParseIndex">The current index of the JsonDataSet data stream being parsed.</param>
+            <returns></returns>
+        </member>
+        <member name="P:Tiferix.Json.Data.JsonDataSetParser.DateTimeFormat">
+            <summary>
+            The DateTimeFormat that all date values are stored in the linked JsonDataSet data stream to be parsed by the function.  All date values 
+            will use this format when parsing and extracting date values from the JsonDataSet data stream to the linked DataSet.
+            </summary>
+        </member>
+        <member name="M:Tiferix.Json.Data.JsonDataSetParser.ParseVarTypeJsonData(System.String)">
+            <summary>
+            Parses a value stored in a JsonDataSet or JsonDataSetSchema file where the data type is unknown.  The function will detect the data type 
+            associated with the Json value and convert it into the appropriate .Net data type.   
+            Returns: Success = Data Value (Converted to Appropriate Type), Failure = null.
+            </summary>
+            <param name="strValue">Json data value to parse.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Tiferix.Json.Data.JsonDataSetSchema">
+            <summary>
+            Contains all schema information associated with a Tiferix.JsonDataSet data file which will be used for serializing and deserializing Json data to and from 
+            ADO.Net DataSet objects.  All JsonDataSetSchema information will be stored in a JsonDataSetSchema file which will serialized and deserialized 
+            using the data contained int he JsonDataSetSchema class.   The JsonDataSetSchema class will contain a set of JsonTableSchema objects 
+            containing the schema for each DataTable contained in the DataSet.
+            </summary>
+        </member>
+        <member name="M:Tiferix.Json.Data.JsonDataSetSchema.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="P:Tiferix.Json.Data.JsonDataSetSchema.DataSetName">
+            <summary>
+            The name of the DataSet associated with the JsonDataSetSchema class.
+            </summary>
+        </member>
+        <member name="P:Tiferix.Json.Data.JsonDataSetSchema.Tables">
+            <summary>
+            A list of JsonTableSchema objects that containing the schema information for each DataTable contained within the DataSet associated with 
+            the JsonDataSetSchema class.
+            </summary>
+        </member>
+        <member name="T:Tiferix.Json.Data.JsonTableSchema">
+            <summary>
+            Contains all schema information specific to the table contained within a DataSet associated with a Tiferix.JsonDataSet data file.  The schema 
+            information will be used for serializing and deserializing Json data to and from ADO.Net DataTable objects.  JsonTableSchema information will 
+            be stored within a JsonDataSetSchema object and stored in a JsonDataSetSchema file or directly stored in a JsonTableSchema file if it is not 
+            part of a dataset.  The JsonTableSchema class will contain a set of JsonColumnSchema objects containing the schema for each DataColumn 
+            contained in the DataTable.
+            </summary>
+        </member>
+        <member name="M:Tiferix.Json.Data.JsonTableSchema.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="P:Tiferix.Json.Data.JsonTableSchema.TableName">
+            <summary>
+            The name of the DataTable associated with the JsonTableSchema class.
+            </summary>
+        </member>
+        <member name="P:Tiferix.Json.Data.JsonTableSchema.Columns">
+            <summary>
+            A list of JsonColumnSchema objects that containing the schema information for each DataColumn contained within the DataTable associated with 
+            the JsonTableSchema class.
+            </summary>
+        </member>
+        <member name="T:Tiferix.Json.Data.JsonColumnSchema">
+            <summary>
+            Contains all schema information specific to the column contained within a DataTable associated with a Tiferix.JsonDataSet data file.  The 
+            JsonColumnSchema object contains all field related information associated with an ADO.Net DataColumn, including field name, ADO.Net data 
+            type, MaxLength, Null Allowance, etc.  Each column's JsonColumnSchema information will be stored within a JsonTableSchema object and stored 
+            in the JsonDataSetSchema or JsonTableSchema file.  The JsonColumnSchema class will be used to serialize and deserialize Json data to and 
+            from ADO.Net DataColumn objects of each table of the DataSet.
+            </summary>
+        </member>
+        <member name="M:Tiferix.Json.Data.JsonColumnSchema.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="P:Tiferix.Json.Data.JsonColumnSchema.ColumnName">
+            <summary>
+            A column with the same name already exists in the collection. The name comparison is not case sensitive.
+            </summary>
+        </member>
+        <member name="P:Tiferix.Json.Data.JsonColumnSchema.DataType">
+            <summary>
+            Gets or sets the type of data stored in the column.
+            </summary>
+        </member>
+        <member name="P:Tiferix.Json.Data.JsonColumnSchema.PrimaryKey">
+            <summary>
+            Indicates if the field is the PrimaryKey column of the table.
+            </summary>
+        </member>
+        <member name="P:Tiferix.Json.Data.JsonColumnSchema.Unique">
+            <summary>
+            Gets or sets a value that indicates whether the values in each row of the column must be unique.
+            </summary>
+        </member>
+        <member name="P:Tiferix.Json.Data.JsonColumnSchema.MaxLength">
+            <summary>
+            Gets or sets the maximum length of a text column.
+            </summary>
+        </member>
+        <member name="P:Tiferix.Json.Data.JsonColumnSchema.AllowDBNull">
+            <summary>
+             Gets or sets a value that indicates whether null values are allowed in this column for rows that belong to the table.        
+            </summary>
+        </member>
+        <member name="P:Tiferix.Json.Data.JsonColumnSchema.AutoIncrement">
+            <summary>
+            Gets or sets a value that indicates whether the column automatically increments the value of the column for new rows added to the table.
+            </summary>
+        </member>
+        <member name="P:Tiferix.Json.Data.JsonColumnSchema.AutoIncrementSeed">
+            <summary>
+            Gets or sets the starting value for a column that has its AutoIncrement property set to true. The default is 0.
+            </summary>
+        </member>
+        <member name="P:Tiferix.Json.Data.JsonColumnSchema.AutoIncrementStep">
+            <summary>
+            Gets or sets the increment used by a column with its System.Data.DataColumn.AutoIncrement property set to true.
+            </summary>
+        </member>
+        <member name="P:Tiferix.Json.Data.JsonColumnSchema.Caption">
+            <summary>
+            Gets or sets the caption for the column.
+            </summary>
+        </member>
+        <member name="P:Tiferix.Json.Data.JsonColumnSchema.DateTimeMode">
+            <summary>
+            Gets or sets the DateTimeMode for the column.
+            </summary>
+        </member>
+        <member name="P:Tiferix.Json.Data.JsonColumnSchema.DefaultValue">
+            <summary>
+            Gets or sets the default value for the column when you are creating new rows.
+            </summary>
+        </member>
+        <member name="P:Tiferix.Json.Data.JsonColumnSchema.Expression">
+            <summary>
+            Gets or sets the expression used to filter rows, calculate the values in a column, or create an aggregate column.
+            </summary>
+        </member>
+        <member name="P:Tiferix.Json.Data.JsonColumnSchema.ReadOnly">
+            <summary>
+            Gets or sets a value that indicates whether the column allows for changes as soon as a row has been added to the table.
+            </summary>
+        </member>
+        <member name="T:Tiferix.Json.Data.JsonDataSetSchemaParser">
+            <summary>
+            The JsonDataSetSchemaParser class parses a Tiferix JsonDataSchema schema file that will be used to load the schema of an ADO.NET DataSet 
+            object.  All data in the DataSetSchema file, including each set of TableSchema data will be parsed from the JsonDataSetSchema file and will 
+            be used to load the schema of each DataTable in the DataSet.  
+            </summary>
+        </member>
+        <member name="M:Tiferix.Json.Data.JsonDataSetSchemaParser.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:Tiferix.Json.Data.JsonDataSetSchemaParser.#ctor(System.IO.Stream)">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:Tiferix.Json.Data.JsonDataSetSchemaParser.#ctor(System.String)">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:Tiferix.Json.Data.JsonDataSetSchemaParser.Dispose">
+            <summary>
+            Public implementation of Dispose pattern callable by consumers.
+            </summary>
+        </member>
+        <member name="M:Tiferix.Json.Data.JsonDataSetSchemaParser.Dispose(System.Boolean)">
+            <summary>
+            Protected implementation of Dispose pattern.
+            </summary>
+            <param name="disposing"></param>
+        </member>
+        <member name="M:Tiferix.Json.Data.JsonDataSetSchemaParser.Finalize">
+            <summary>
+            Destructor
+            </summary>
+        </member>
+        <member name="M:Tiferix.Json.Data.JsonDataSetSchemaParser.LoadSchema(System.IO.Stream)">
+            <summary>
+            Loads the JsonDataSetSchema in the linked data stream into a string buffer in memory that will contain the entire contents of the
+            JsonDataSetSchema data file to be parsed by the class.
+            </summary>
+            <param name="stream"></param>        
+        </member>
+        <member name="M:Tiferix.Json.Data.JsonDataSetSchemaParser.LoadSchema(System.String)">
+            <summary>
+            Loads the JsonDataSetSchema contained in the specified schema file into a string buffer in memory that will contain the entire contents of the
+            JsonDataSetSchema data file to be parsed by the class.
+            </summary>
+            <param name="strFileName"></param>        
+        </member>
+        <member name="M:Tiferix.Json.Data.JsonDataSetSchemaParser.ParseJsonSchema">
+            <summary>
+            Parses the buffered stream of data contained in the JsonDataSetSchemaParser class, which was loaded from a Tiferix JsonDataSetSchema 
+            file.  The function will read the schema data from the buffered schema string into the linked JsonDataSetSchema object of the parser class,
+            which then can be used to initialize the schema of the DataSet object.
+            </summary>
+        </member>
+        <member name="M:Tiferix.Json.Data.JsonDataSetSchemaParser.ParseJsonSchema(System.IO.Stream)">
+            <summary>
+            Parses the specified stream of data in the function, which is linked to a Tiferix JsonDataSetSchema file and reads the schema data from the
+            stream which will then be used to initialize the schema of the DataSet object linked to the JsonDataSetSchemaParser class.  
+            </summary>
+        </member>
+        <member name="M:Tiferix.Json.Data.JsonDataSetSchemaParser.ParseJsonSchema(System.String)">
+            <summary>
+            Parses the data of the specified Tiferix JsonDataSetSchema file in the function and reads the schema data from the
+            file which will then be used to initialize the schema of the DataSet object linked to the JsonDataSetSchemaParser class.  
+            </summary>
+        </member>
+        <member name="M:Tiferix.Json.Data.JsonDataSetSchemaParser.ParseJsonTableSchema(Tiferix.Json.Data.JsonTableSchema@,System.Int32@)">
+            <summary>
+            Parses the current JsonTableSchema information contained in the JsonDataSetSchema data stream linked to the JsonDataSetSchemaParser
+            class.  The function will read the table schema data at the current position of the data stream into the JsonTableSchema object 
+            passed to the function.  This data can then be used to initialize the schema of a DataTable object.
+            </summary>
+            <param name="schemaJsonTable">The JsonTableSchema object that will </param>
+            <param name="iCurParseIndex">The current index of the JsonDataSetSchema data stream being parsed.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiferix.Json.Data.JsonDataSetSchemaParser.ParseJsonTableSchema">
+            <summary>
+            Parses the current JsonTableSchema information contained in the JsonDataSetSchema data stream linked to the JsonDataSetSchemaParser
+            class.  The function will read the table schema data at the current position of the data stream into a newly instantiated JsonTableSchema object 
+            which will then be returned by the function.  This data can then be used to initialize the schema of a DataTable object.        
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Tiferix.Json.Data.JsonDataSetSchemaParser.ParseJsonColumnSchema(Tiferix.Json.Data.JsonColumnSchema@,System.Int32@)">
+            <summary>
+            Parses the current JsonColumnSchema information of the current JsonTableSchema record contained in the JsonDataSetSchema data stream 
+            linked o the JsonDataSetSchemaParser class.  The function will read the column schema and extract the column information into the 
+            JstonColumnSchema object passed to the function.  All field schema properties and values will be converted into the appropriate format and 
+            loaded into the JsonColumnSchema object associatd with the current field of the current table being parsed in the JsonDataSchemaParser 
+            class.
+            </summary>
+            <param name="schemaJsonCol">A reference to the JsonColumnSchema object to be loaded with the column schema information from the 
+            JsonDataSetSchema file being parsed in the class.</param>
+            <param name="iCurParseIndex">The current index of the JsonDataSetSchema data stream being parsed.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiferix.Json.Data.JsonDataSetSchemaParser.MoveNextSchemaRecord(System.Int32@)">
+            <summary>
+            Scans the JsonDataSetSchema data stream for the next record block of the parent object block being parsed, whether it be a table schema or 
+            columna schema record blocks.  Because Json files are stored in a hierarchical structure, the parsing operation will parse each set of object 
+            blocks at the current level and treat them as invidividual records of the parent object block.  When the next record block of the parent object 
+            block is detected, the function will return true.  If the final record has been reached in the set of records of the parent object block, then the 
+            function will return false. The current parsing index will be advanced to either the next record or to past the last position of the parent object block, which will be positioned 
+            at the next parent record.  An example can be positioning the parser at the next table schema record after the final row of the table schema has been detected.
+            </summary>
+            <param name="iCurParseIndex">The current index of the JsonDataSetSchema data stream being parsed.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Tiferix.Json.Data.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Tiferix.Json.Data.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Tiferix.Json.Data.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+    </members>
+</doc>

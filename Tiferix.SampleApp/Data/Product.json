@@ -1,0 +1,94 @@
+﻿{
+  "Products": [
+    {
+      "ProductID": 1,
+      "Name": "Tito's Gold-Plated Watch",
+      "ProductCode": "A4230-1202",
+      "Price": 95.00
+    },
+    {
+      "ProductID": 2,
+      "Name": "Zino Chianti Wine",
+      "ProductCode": "B302-2930",
+      "Price": 12.50
+    },
+    {
+      "ProductID": 3,
+      "Name": "Zoe Brand Beeswax Candles",
+      "ProductCode": "G1209-0039",
+      "Price": 25.32
+    },
+    {
+      "ProductID": 4,
+      "Name": "Rowdy Roddy's BBQ Jerky",
+      "ProductCode": "F390-4811",
+      "Price": 8.73
+    },
+    {
+      "ProductID": 5,
+      "Name": "Pharoah Brand Hummus",
+      "ProductCode": "F893-0390",
+      "Price": 3.25
+    },
+    {
+      "ProductID": 6,
+      "Name": "Ducks Sport Jersey",
+      "ProductCode": "C3207-9219",
+      "Price": 12.99
+    },
+    {
+      "ProductID": 7,
+      "Name": "Tomahawk LED Flashlight",
+      "ProductCode": "S4349-0209",
+      "Price": 25.00
+    },
+    {
+      "ProductID": 8,
+      "Name": "Bulletproof Brand SmartPhone Cases",
+      "ProductCode": "B930-7790",
+      "Price": 50.00
+    },
+    {
+      "ProductID": 9,
+      "Name": "Cytex T200 Routers",
+      "ProductCode": "E092-1109",
+      "Price": 177.15
+    },
+    {
+      "ProductID": 10,
+      "Name": "Rancher Don's Bison Sausage (Per lb)",
+      "ProductCode": "F412-2738",
+      "Price": 14.00
+    },
+    {
+      "ProductID": 11,
+      "Name": "Tronix Laptop (Quad Core i-9, 32GB RAM)",
+      "ProductCode": "E732-5839",
+      "Price": 2200.00
+    },
+    {
+      "ProductID": 12,
+      "Name": "Googoo Eco Baby Bottles 12-Pack",
+      "ProductCode": "H290-0901",
+      "Price": 15.00
+    },
+    {
+      "ProductID": 13,
+      "Name": "Tronix Ergonomic Bluetooth Keyboard",
+      "ProductCode": "E780-7729",
+      "Price": 89.50
+    },
+    {
+      "ProductID": 14,
+      "Name": "Madison Electric Toothbrush",
+      "ProductCode": "H119-9092",
+      "Price": 71.35
+    },
+    {
+      "ProductID": 15,
+      "Name": "Jaxson's Sterling Pen",
+      "Product": "A7829-4718",
+      "Price": 25.00
+    }
+  ]
+}

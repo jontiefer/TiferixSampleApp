@@ -1,0 +1,100 @@
+﻿{
+  "DataSet": "SampleData",
+  "Tables": [
+    {
+      "Table": "Customers",
+      "Columns": [
+        {
+          "ColumnName": "CustomerID",
+          "DataType": "int",
+          "PrimaryKey": true,
+          "Unique": true
+        },
+        {
+          "ColumnName": "FirstName",
+          "DataType": "string",
+          "MaxLength": 50
+        },
+        {
+          "ColumnName": "LastName",
+          "DataType": "string",
+          "MaxLength": 150
+        },
+        {
+          "ColumnName": "Phone",
+          "DataType": "string"
+        },
+        {
+          "ColumnName": "JoinDate",
+          "DataType": "datetime"
+        }
+      ]
+    },
+    {
+      "Table": "Orders",
+      "Columns": [
+        {
+          "ColumnName": "OrderID",
+          "DataType": "int",
+          "PrimaryKey": true,
+          "Unique": true
+        },
+        {
+          "ColumnName": "CustomerID",
+          "DataType": "int"
+        },
+        {
+          "ColumnName": "InvoiceNo",
+          "DataType": "string"
+        },
+        {
+          "ColumnName": "OrderDate",
+          "DataType": "datetime"
+        }
+      ]
+    },
+    {
+      "Table": "OrderProducts",
+      "Columns": [
+        {
+          "ColumnName": "OrderID",
+          "DataType": "int",
+          "PrimaryKey": true
+        },
+        {
+          "ColumnName": "ProductID",
+          "DataType": "int",
+          "PrimaryKey": true
+        },
+        {
+          "ColumnName": "Quantity",
+          "DataType": "int"
+        }
+      ]
+    },
+    {
+      "Table": "Products",
+      "Columns": [
+        {
+          "ColumnName": "ProductID",
+          "DataType": "int",
+          "PrimaryKey": true,
+          "Unique": true
+        },
+        {
+          "ColumnName": "Name",
+          "DataType": "string",
+          "MaxLength": 255
+        },
+        {
+          "ColumnName": "ProductCode",
+          "DataType": "string"
+        },
+        {
+          "ColumnName": "Price",
+          "DataType": "decimal"
+        }
+      ]
+    }
+  ]
+}

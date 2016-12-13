@@ -1,0 +1,1266 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Tiferix.Json.Tools</name>
+    </assembly>
+    <members>
+        <member name="T:Tiferix.Json.Tools.JsonDataUtils">
+            <summary>
+            The JsonDataUtils class contains a variety of utility functions that will be used by various classes in the Tiferix.Json library.
+            </summary>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataUtils.ConvertFromJsonDataType(System.String)">
+            <summary>
+            Converts a data type stored in a Tiferix.Json file into its associated .Net data type.  All Tiferix.Json data types will be stored as Json 
+            strings with a property name of "DataType".
+            </summary>
+            <param name="strSchemaDataType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataUtils.ConvertToJsonDataType(System.Type)">
+            <summary>
+            Converts a .Net data type into a format that can be stored in a Tiferix.Json file.  All Tiferix.Json data types will be stored as
+            Json strings with a property name of "DataType".
+            </summary>
+            <param name="dataType">.Net data type to convert into a Tiferix.Json compatible data type.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataUtils.ConvertToADODataSetDateTimeEnum(System.String)">
+            <summary>
+            Converts a DateSetDateTime value that is contained in the Tiferix.Json format into a DataSetDateTime .Net object which is used by the 
+            DateTimeMode property of ADO.Net DataTables.
+            </summary>
+            <param name="strDSDateTimeVal"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataUtils.ConvertEscapeChar(System.String)">
+            <summary>
+            Converts an escape character represented as a string (with '\\' characters) into actual .Net escape character represented as a single char value.
+            All escape characters will be stored as strings in Tiferix.Json files.
+            </summary>
+            <param name="strValue">The string value to convert to a .Net escape character.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataUtils.ConvertDataFromJson(System.String,System.Type,System.Runtime.Serialization.DateTimeFormat)">
+            <summary>
+            Converts a data value stored in a Tiferix.Json file into the appropriate .Net value according to the data type of the specified value.  Since 
+            all values are stored as strings in Json, certain data conversions and string decoding will be necessary for certain formats of data, such 
+            as binary and date/time types of data.
+            </summary>
+            <param name="strValue">The Tiferix.Json data value string to convert into its .Net value that matches its data type.</param>
+            <param name="dataType">The .Net data type that the Tiferix.Json data value will be converted to.</param>
+            <param name="dateTimeFormat">The DateTimeFormat that DateTime, TimeSpan and other date related types are used for the Tiferix.Json 
+            data value.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataUtils.ConvertDateTimeOffsetFromJson(System.String,System.Runtime.Serialization.DateTimeFormat)">
+            <summary>
+            Converts a Tiferix.Json DateTimeOffset value into the equivalent .Net DateTimeOffset value.  The Tiferix.Json DateTimeOffset will be stored 
+            as a concatenated Date/Time and TimeSpan value which will be used to generate the DateTimeOffset value.
+            </summary>
+            <param name="strValue">Tiferix.Json DateTimeOffset value to convert to .Net DateTimeOffset value.</param>
+            <param name="dateTimeFormat">Date/Time format used for the Date/Time portion of the Tiferix.Json DateTimeOffset value.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataUtils.IsEscapeChar(System.String)">
+            <summary>
+            Checks to see if the Tiferix.Json string value is a valid .Net escape character.  Escape characters in Tiferix.Json files 
+            will be stored as string literals (with two '\\') and must be converted into valid .Net escape character char values.
+            </summary>
+            <param name="strValue">The Tiferix.Json string to examine.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataUtils.IsAnonymousType(System.Type)">
+            <summary>
+            Checks to see if the .Net data type is an anonymous data type.  
+            </summary>
+            <param name="type">.Net data type.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Tiferix.Json.Tools.JsonDataWriter">
+            <summary>
+            The JsonDataWriter class is used to write data from .Net objects, DataSets and Tiferix.Json schema objects to various Tieferix.Json data and schema 
+            files.  This class will handle the the formatting and writing of data into a Tiferix.Json files, including object and array blocks, identation, spacing
+            and the processing and conversion of various .Net data types into serialized Tiferix.Json strings that match the data type. 
+            </summary>
+        </member>
+        <member name="F:Tiferix.Json.Tools.JsonDataWriter.m_iNestLevel">
+            <summary>
+            The current level of nesting of Json object/array block in the current JsonDataWriter when AutoIdent mode is active.
+            </summary>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.#ctor(System.IO.Stream,System.Text.Encoding)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="stream">The underlying data stream used by the JsonDataWriter class to write all Tiferix.Json data output.</param>
+            <param name="encoding">The character encoding used for writing output to the Tiferix.Json data stream.  The default character 
+            encoding is UTF8.</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.#ctor(System.IO.Stream)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="stream">The underlying data stream used by the JsonDataWriter class to write all Tiferix.Json data output.</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.#ctor(System.String,System.Text.Encoding)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="strFileName">The full path and name of the Tiferix.Json file where the JsonDataWriter class will write all data output.</param>
+            <param name="encoding">The character encoding used for writing output to the Tiferix.Json data file.  The default character 
+            encoding is UTF8.</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.#ctor(System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="strFileName">The full path and name of the Tiferix.Json file where the JsonDataWriter class will write all data output.</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.InitializeDataWriter(System.IO.Stream,System.Text.Encoding)">
+            <summary>
+            Initializes the JsonDataWriter class with all default formatting, encoding and data conversion settings, as well as creates a new stream writer 
+            object.  The streamwriter will be used to write all Tiferix.Json string data to the underlying data stream used by the class.
+            </summary>
+            <param name="stream">The underlying data stream used by the JsonDataWriter class to write all Tiferix.Json data output.</param>
+            <param name="encoding">The character encoding used for writing output to the Tiferix.Json data stream.  The default character 
+            encoding is UTF8.</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.Dispose">
+            <summary>
+            Public implementation of Dispose pattern callable by consumers.
+            </summary>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.Dispose(System.Boolean)">
+            <summary>
+            Protected implementation of Dispose pattern.
+            </summary>
+            <param name="disposing"></param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.Finalize">
+            <summary>
+            Destructor
+            </summary>
+        </member>
+        <member name="P:Tiferix.Json.Tools.JsonDataWriter.BaseStream">
+            <summary>
+            The underlying data stream used by the JsonDataWriter class to write all Tiferix.Json data output.
+            </summary>
+        </member>
+        <member name="P:Tiferix.Json.Tools.JsonDataWriter.Position">
+            <summary>
+            Gets or sets the current position of the underlying data stream of the JsonDataWriter class.
+            </summary>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.Close">
+            <summary>
+            Closes the JsonDataWriter's StreamWriter object and the underlying data stream.
+            </summary>
+        </member>
+        <member name="P:Tiferix.Json.Tools.JsonDataWriter.FieldDelimiter">
+            <summary>
+            The character used for separating invididual fields of a table in the Json data files.  The default fielf delimiter for separating table fields is a 
+            comma character.
+            </summary>
+        </member>
+        <member name="P:Tiferix.Json.Tools.JsonDataWriter.Encoding">
+            <summary>
+            The character encoding to be used for the Json data files, which are always stored in string format.  This will be the character encoding 
+            used for the entire Json data file.  The default character encoding is UTF8.
+            </summary>
+        </member>
+        <member name="P:Tiferix.Json.Tools.JsonDataWriter.DateTimeFormat">
+            <summary>
+            The format to use for storing Date/Time values in the Json data file.
+            </summary>
+        </member>
+        <member name="P:Tiferix.Json.Tools.JsonDataWriter.DateTimeZone">
+            <summary>
+            Indicates which time zone will be associated with the Date/Time values stored in the Json data file.
+            </summary>
+        </member>
+        <member name="P:Tiferix.Json.Tools.JsonDataWriter.Culture">
+            <summary>
+            The specific culture or locale  associated with the data stored in the Json data file.
+            </summary>
+        </member>
+        <member name="P:Tiferix.Json.Tools.JsonDataWriter.AutoIdent">
+            <summary>
+            Indicates if the JsonDataWriter class will automatically handling the identation of the Json data as it is written to the Json data file.  If 
+            AutoIdent is set to true, then the JsonDataWriter class will keep track of the identation of the various nested blocks of data and handling 
+            the identation of the various nested blocks will not be neccessary.  AutoIdent is enabled by default.   
+            NOTE: Certain format restrictions apply, when AutoIdent mode is set to true.
+            </summary>
+        </member>
+        <member name="P:Tiferix.Json.Tools.JsonDataWriter.IdentSpacing">
+            <summary>
+            The number of identation characters (usually a space) to use to ident each line of data in the Json data file.  Each time an identation string 
+            is written, it will use the number of identation spaces specified in this property.  The default number of indentation spaces is 2.
+            </summary>
+        </member>
+        <member name="P:Tiferix.Json.Tools.JsonDataWriter.IdentChar">
+            <summary>
+            The character used which will represent an identation space in the Json data file.  Each time an identation string is written, this character 
+            will be written to the Json data file, using the number of identation spaces specified in the class.  The default identation character is a space.
+            </summary>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.GetIdentString(System.Char,System.Int32)">
+            <summary>
+            Gets an identation string using either the IdentSpacing and IdentChar properties of the JsonDataWriter class or can optionally generate 
+            an identation string using the identation character and spacing parameters of the function.  This function will also be called internally when 
+            the AutoIdent feature is enabled and will keep track of the current nesting level/position of the Json data file.
+            </summary>
+            <param name="cIdentChar">Identation character.  This setting will override the IdentChar property of the class if set.</param>
+            <param name="iSpacing">Identating spacing.  This setting will override the IdentSpacing property of the class is set.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WriteBeginObject(System.Boolean)">
+            <summary>
+            Writes the opening brace symbol "{" representing the start of a new Json object block to the Tiferix.Json data stream.
+            </summary>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the opening brace symbol character.</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WriteEndObject(System.Boolean)">
+            <summary>
+            Writes the closing brace symbol "}" representing the end of a Json object block to the Tiferix.Json data stream.
+            </summary>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the closing brace symbol character.</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WriteBeginArray(System.Boolean,System.Boolean)">
+            <summary>
+            Writes the opening bracket symbol "[" representing the start of a new Json array block to the Tiferix.Json data stream.
+            </summary>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the opening bracket symbol character.</param>
+            <param name="blStartOnNewLine">Indicates if the array block will start on a new line.</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WriteEndArray(System.Boolean)">
+            <summary>
+            Writes the closing bracket symbol "]" representing the end of a Json array block to the Tiferix.Json data stream.
+            </summary>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the closing bracket symbol character.</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WriteIndent(System.Int32)">
+            <summary>
+            Writes an indentation string to the Tiferix.Json data stream.  The identation string will consist of the identation character and spacing set in
+            the JsonDataWriter class.  If the NumSpaces parameter is set, it will override the identation spacing settings of the class.
+            </summary>
+            <param name="iNumSpaces">The number of characters (usually spaces) to write in the identation string.  If this parameter is set it willl 
+            override the IdentSpacing setting of the class.</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WriteNewLine(System.Int32)">
+            <summary>
+            Writes one or more new line characters to the Tiferix.Json data stream.  The default number of lines written is 1.
+            </summary>
+            <param name="iNumLines">Number of new line characters to write to the stream.</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WritePropertyName(System.String)">
+            <summary>
+            Writes the name of the Tiferix.Json property to the Tiferix.Json data stream.  The property will be written in the aprropriate Json format of 
+            "PropertyName": {data value}.
+            NOTE: A space will be appended after the colon symbol of the property.
+            </summary>
+            <param name="strPropName">The name of the property.</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WriteFieldDelimiter(System.Char,System.Boolean)">
+            <summary>
+            Writes a field delimiter and optionally a new line character after the delimiter to Tiferix.Json data stream.  If the cDelimiter parameter is 
+            not set, then the FieldDelimiter setting of the JsonDataWriter class will be written as the field delimiter to the stream.
+            </summary>
+            <param name="cDelimiter">The character used as the field delimiter.  If this paramter is set it will override the FieldDelimiter character setting 
+            of the class.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the field delimiter character.</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WriteFieldDelimiter(System.Boolean)">
+            <summary>
+            Writes a field delimiter and optionally a new line character after the delimiter to Tiferix.Json data stream.  This version of the function
+            will write the FieldDelimiter character setting of the JsonDataWriter class to the stream.
+            </summary>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the field delimiter character.</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WriteNumericValue(System.Object,System.Boolean,System.Boolean)">
+            <summary>
+            This internal function will be used to write all primitive .Net numeric data values to the Tiferix.Json data stream.  The numeric values will 
+            be converted to a string and written as a Json formatted numeric value to the Tiferix.Json stream.  Optionally, a field delimiter and newline 
+            character can be written after the value string to the data stream.
+            </summary>
+            <param name="oValue">The numeric value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>        
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WriteNumericValue(System.String,System.Object,System.Boolean,System.Boolean)">
+            <summary>
+            This internal function will be used to write both the name of the property and its associated value for all primitive .Net numeric data values 
+            to the Tiferix.Json data stream.  The property name and value will be written in the proper Json format of "PropertyName: " {data value}.  
+            Numeric values will be converted to a string and written as a Json formatted numeric value to the Tiferix.Json stream.  Optionally, a field 
+            delimiter and newline character can be written after the value string to the data stream.
+            </summary>
+            <param name="strPropName">The name of the property.</param>
+            <param name="oValue">The numeric value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>        
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WriteStringValue(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            This internal function will be used to write all .Net string data values to the Tiferix.Json data stream.  Any data type that needs to be 
+            outputted in string format in the Json file to a string (including dates and even binarydata) will be passed as a string to this function
+            and then written as a Json formatted string value to the Tiferix.Json stream.  Optionally, a field delimiter and newline 
+            character can be written after the string value to the data stream.
+            </summary>
+            <param name="strValue">The string formatted value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>        
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WriteStringValue(System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            This internal function will be used to write oth the name of the property and its associated value for all .Net string data values to the 
+            Tiferix.Json data stream.  The property name and value will be written in the proper Json format of "PropertyName: " "string value".  
+            Any data type that needs to be outputted in string format in the Json file to a string (including dates and even binarydata) will be passed as
+            a string to this function and then written as a Json formatted string value to the Tiferix.Json stream.  Optionally, a field delimiter and
+            newline character can be written after the string value to the data stream.
+            </summary>
+            <param name="strPropName">The name of the property.</param>
+            <param name="strValue">The string formatted value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>        
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WriteDataValue(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Writes a .Net data value to the Tiferix.Json data stream.  The data value will be converted by the JsonDataWriter into the appropriate Json 
+            format and then written to the Tiferix.Json stream.  Optionally, a field delimiter and newline character can be written after the value
+            string to the data stream.
+            </summary>
+            <param name="strValue">String value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>        
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WriteDataValue(System.Byte,System.Boolean,System.Boolean)">
+            <summary>
+            Writes a .Net data value to the Tiferix.Json data stream.  The data value will be converted by the JsonDataWriter into the appropriate Json 
+            format and then written to the Tiferix.Json stream.  Optionally, a field delimiter and newline character can be written after the value
+            string to the data stream.
+            </summary>
+            <param name="bValue">Byte value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>        
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WriteDataValue(System.Int16,System.Boolean,System.Boolean)">
+            <summary>
+            Writes a .Net data value to the Tiferix.Json data stream.  The data value will be converted by the JsonDataWriter into the appropriate Json 
+            format and then written to the Tiferix.Json stream.  Optionally, a field delimiter and newline character can be written after the value
+            string to the data stream.
+            </summary>
+            <param name="siValue">Int16 value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WriteDataValue(System.Int32,System.Boolean,System.Boolean)">
+            <summary>
+            Writes a .Net data value to the Tiferix.Json data stream.  The data value will be converted by the JsonDataWriter into the appropriate Json 
+            format and then written to the Tiferix.Json stream.  Optionally, a field delimiter and newline character can be written after the value
+            string to the data stream.
+            </summary>
+            <param name="iValue">Int32 value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WriteDataValue(System.Int64,System.Boolean,System.Boolean)">
+            <summary>
+            Writes a .Net data value to the Tiferix.Json data stream.  The data value will be converted by the JsonDataWriter into the appropriate Json 
+            format and then written to the Tiferix.Json stream.  Optionally, a field delimiter and newline character can be written after the value
+            string to the data stream.
+            </summary>
+            <param name="lValue">Int64 value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WriteDataValue(System.Single,System.Boolean,System.Boolean)">
+            <summary>
+            Writes a .Net data value to the Tiferix.Json data stream.  The data value will be converted by the JsonDataWriter into the appropriate Json 
+            format and then written to the Tiferix.Json stream.  Optionally, a field delimiter and newline character can be written after the value
+            string to the data stream.
+            </summary>
+            <param name="fValue">Float value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WriteDataValue(System.Double,System.Boolean,System.Boolean)">
+            <summary>
+            Writes a .Net data value to the Tiferix.Json data stream.  The data value will be converted by the JsonDataWriter into the appropriate Json 
+            format and then written to the Tiferix.Json stream.  Optionally, a field delimiter and newline character can be written after the value
+            string to the data stream.
+            </summary>
+            <param name="dValue">Double value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WriteDataValue(System.Decimal,System.Boolean,System.Boolean)">
+            <summary>
+            Writes a .Net data value to the Tiferix.Json data stream.  The data value will be converted by the JsonDataWriter into the appropriate Json 
+            format and then written to the Tiferix.Json stream.  Optionally, a field delimiter and newline character can be written after the value
+            string to the data stream.
+            </summary>
+            <param name="mValue">Decimal value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WriteDataValue(System.SByte,System.Boolean,System.Boolean)">
+            <summary>
+            Writes a .Net data value to the Tiferix.Json data stream.  The data value will be converted by the JsonDataWriter into the appropriate Json 
+            format and then written to the Tiferix.Json stream.  Optionally, a field delimiter and newline character can be written after the value
+            string to the data stream.
+            </summary>
+            <param name="sbValue">Signed Byte value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WriteDataValue(System.UInt16,System.Boolean,System.Boolean)">
+            <summary>
+            Writes a .Net data value to the Tiferix.Json data stream.  The data value will be converted by the JsonDataWriter into the appropriate Json 
+            format and then written to the Tiferix.Json stream.  Optionally, a field delimiter and newline character can be written after the value
+            string to the data stream.
+            </summary>
+            <param name="usiValue">UInt16 value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WriteDataValue(System.UInt32,System.Boolean,System.Boolean)">
+            <summary>
+            Writes a .Net data value to the Tiferix.Json data stream.  The data value will be converted by the JsonDataWriter into the appropriate Json 
+            format and then written to the Tiferix.Json stream.  Optionally, a field delimiter and newline character can be written after the value
+            string to the data stream.
+            </summary>
+            <param name="uiValue">UInt32 value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WriteDataValue(System.UInt64,System.Boolean,System.Boolean)">
+            <summary>
+            Writes a .Net data value to the Tiferix.Json data stream.  The data value will be converted by the JsonDataWriter into the appropriate Json 
+            format and then written to the Tiferix.Json stream.  Optionally, a field delimiter and newline character can be written after the value
+            string to the data stream.
+            </summary>
+            <param name="ulValue">UInt64 value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WriteDataValue(System.Char,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Writes a .Net data value to the Tiferix.Json data stream.  The data value will be converted by the JsonDataWriter into the appropriate Json 
+            format and then written to the Tiferix.Json stream.  Char values can either be written as Json formatted string or numeric values.  Optionally,
+            a field delimiter and newline character can be written after the value string to the data stream.
+            </summary>
+            <param name="cValue">Char value to write to the Tiferix.Json data stream.</param>
+            <param name="blSurroundQuotes"> If the SurroundQuotes parameter is set to true, then the char value will be written as a Json formatted 
+            string with quotes surrounded by the char value.  If set to false, then the char will be written as a single character value to the stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WriteDataValue(System.DateTime,System.Boolean,System.Boolean)">
+            <summary>
+            Writes a .Net data value to the Tiferix.Json data stream.  The data value will be converted by the JsonDataWriter into the appropriate Json 
+            format and then written to the Tiferix.Json stream.  DateTime values will use the DateTimeFormat settings set in the JsonDataWriter class 
+            to serialize the DateTime values as Json formatted strings.   Optionally, a field delimiter and newline character can be written after the 
+            numeric value string to the data stream. 
+            </summary>
+            <param name="datValue">DateTime value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WriteDataValue(System.DateTimeOffset,System.Boolean,System.Boolean)">
+            <summary>
+            Writes a .Net data value to the Tiferix.Json data stream.  The data value will be converted by the JsonDataWriter into the appropriate Json 
+            format and then written to the Tiferix.Json stream.  The DateTime portion of DateTimeOffset values will use the DateTimeFormat settings set
+            in the JsonDataWriter class to serialize the DateTime values as Json formatted strings.   Optionally, a field delimiter and newline character 
+            can be written after the value string to the data stream. 
+            </summary>
+            <param name="dtoValue">DateTimeOffset value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WriteDataValue(System.TimeSpan,System.Boolean,System.Boolean)">
+            <summary>
+            Writes a .Net data value to the Tiferix.Json data stream.  The data value will be converted by the JsonDataWriter into the appropriate Json 
+            format and then written to the Tiferix.Json stream.  Optionally, a field delimiter and newline character can be written after the value
+            string to the data stream.
+            </summary>
+            <param name="tsValue">TimeSpan value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WriteDataValue(System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Writes a .Net data value to the Tiferix.Json data stream.  The data value will be converted by the JsonDataWriter into the appropriate Json 
+            format and then written to the Tiferix.Json stream.  Optionally, a field delimiter and newline character can be written after the value
+            string to the data stream.
+            </summary>
+            <param name="blValue">Boolean value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WriteDataValue(System.Nullable{System.Byte},System.Boolean,System.Boolean)">
+            <summary>
+            Writes a nullable .Net data value to the Tiferix.Json data stream.  The data value will be converted by the JsonDataWriter into the appropriate 
+            Json format and then written to the Tiferix.Json stream.  Null values will be written according to the Json standards as the value of 'null',
+            without quotes.  Optionally, a field delimiter and newline character can be written after the value to the data stream.
+            </summary>
+            <param name="bValue">Nullable Byte value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WriteDataValue(System.Nullable{System.Int16},System.Boolean,System.Boolean)">
+            <summary>
+            Writes a nullable .Net data value to the Tiferix.Json data stream.  The data value will be converted by the JsonDataWriter into the appropriate 
+            Json format and then written to the Tiferix.Json stream.  Null values will be written according to the Json standards as the value of 'null',
+            without quotes.  Optionally, a field delimiter and newline character can be written after the value to the data stream.
+            </summary>
+            <param name="siValue">Nullable Int16 value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WriteDataValue(System.Nullable{System.Int32},System.Boolean,System.Boolean)">
+            <summary>
+            Writes a nullable .Net data value to the Tiferix.Json data stream.  The data value will be converted by the JsonDataWriter into the appropriate 
+            Json format and then written to the Tiferix.Json stream.  Null values will be written according to the Json standards as the value of 'null',
+            without quotes.  Optionally, a field delimiter and newline character can be written after the value to the data stream.
+            </summary>
+            <param name="iValue">Nullable Int32 value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WriteDataValue(System.Nullable{System.Int64},System.Boolean,System.Boolean)">
+            <summary>
+            Writes a nullable .Net data value to the Tiferix.Json data stream.  The data value will be converted by the JsonDataWriter into the appropriate 
+            Json format and then written to the Tiferix.Json stream.  Null values will be written according to the Json standards as the value of 'null',
+            without quotes.  Optionally, a field delimiter and newline character can be written after the value to the data stream.
+            </summary>
+            <param name="lValue">Nullable Int64 value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WriteDataValue(System.Nullable{System.Single},System.Boolean,System.Boolean)">
+            <summary>
+            Writes a nullable .Net data value to the Tiferix.Json data stream.  The data value will be converted by the JsonDataWriter into the appropriate 
+            Json format and then written to the Tiferix.Json stream.  Null values will be written according to the Json standards as the value of 'null',
+            without quotes.  Optionally, a field delimiter and newline character can be written after the value to the data stream.
+            </summary>
+            <param name="fValue">Nullable Float value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WriteDataValue(System.Nullable{System.Double},System.Boolean,System.Boolean)">
+            <summary>
+            Writes a nullable .Net data value to the Tiferix.Json data stream.  The data value will be converted by the JsonDataWriter into the appropriate 
+            Json format and then written to the Tiferix.Json stream.  Null values will be written according to the Json standards as the value of 'null',
+            without quotes.  Optionally, a field delimiter and newline character can be written after the value to the data stream.
+            </summary>
+            <param name="dValue">Nullable Double value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WriteDataValue(System.Nullable{System.Decimal},System.Boolean,System.Boolean)">
+            <summary>
+            Writes a nullable .Net data value to the Tiferix.Json data stream.  The data value will be converted by the JsonDataWriter into the appropriate 
+            Json format and then written to the Tiferix.Json stream.  Null values will be written according to the Json standards as the value of 'null',
+            without quotes.  Optionally, a field delimiter and newline character can be written after the value to the data stream.
+            </summary>
+            <param name="mValue">Nullable Decimal value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WriteDataValue(System.Nullable{System.SByte},System.Boolean,System.Boolean)">
+            <summary>
+            Writes a nullable .Net data value to the Tiferix.Json data stream.  The data value will be converted by the JsonDataWriter into the appropriate 
+            Json format and then written to the Tiferix.Json stream.  Null values will be written according to the Json standards as the value of 'null',
+            without quotes.  Optionally, a field delimiter and newline character can be written after the value to the data stream.
+            </summary>
+            <param name="sbValue">Nullable Signed Byte value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WriteDataValue(System.Nullable{System.UInt16},System.Boolean,System.Boolean)">
+            <summary>
+            Writes a nullable .Net data value to the Tiferix.Json data stream.  The data value will be converted by the JsonDataWriter into the appropriate 
+            Json format and then written to the Tiferix.Json stream.  Null values will be written according to the Json standards as the value of 'null',
+            without quotes.  Optionally, a field delimiter and newline character can be written after the value to the data stream.
+            </summary>
+            <param name="usiValue">Nullable UInt16 value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WriteDataValue(System.Nullable{System.UInt32},System.Boolean,System.Boolean)">
+            <summary>
+            Writes a nullable .Net data value to the Tiferix.Json data stream.  The data value will be converted by the JsonDataWriter into the appropriate 
+            Json format and then written to the Tiferix.Json stream.  Null values will be written according to the Json standards as the value of 'null',
+            without quotes.  Optionally, a field delimiter and newline character can be written after the value to the data stream.
+            </summary>
+            <param name="uiValue">Nullable UInt32 value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WriteDataValue(System.Nullable{System.UInt64},System.Boolean,System.Boolean)">
+            <summary>
+            Writes a nullable .Net data value to the Tiferix.Json data stream.  The data value will be converted by the JsonDataWriter into the appropriate 
+            Json format and then written to the Tiferix.Json stream.  Null values will be written according to the Json standards as the value of 'null',
+            without quotes.  Optionally, a field delimiter and newline character can be written after the value to the data stream.
+            </summary>
+            <param name="ulValue">Nullable UInt64 value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WriteDataValue(System.Nullable{System.Char},System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Writes a nullable .Net data value to the Tiferix.Json data stream.  The data value will be converted by the JsonDataWriter into the appropriate 
+            Json format and then written to the Tiferix.Json stream.  Char values can either be written as Json formatted string or numeric values.  Null 
+            values will be written according to the Json standards as the value of 'null', without quotes.  Optionally, a field delimiter and newline 
+            character can be written after the value string to the data stream.
+            </summary>
+            <param name="cValue">Nullable Char value to write to the Tiferix.Json data stream.</param>
+            <param name="blSurroundQuotes"> If the SurroundQuotes parameter is set to true, then the char value will be written as a Json formatted 
+            string with quotes surrounded by the char value.  If set to false, then the char will be written as a single character value to the stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WriteDataValue(System.Nullable{System.DateTime},System.Boolean,System.Boolean)">
+            <summary>
+            Writes a nullable .Net data value to the Tiferix.Json data stream.  The data value will be converted by the JsonDataWriter into the appropriate 
+            Json format and then written to the Tiferix.Json stream.  DateTime values will use the DateTimeFormat settings set in the JsonDataWriter class 
+            to serialize the DateTime values as Json formatted strings.  Null values will be written according to the Json standards as the value of 'null',
+            without quotes.  Optionally, a field delimiter and newline character can be written after the value to the data stream.
+            </summary>
+            <param name="datValue">Nullable DateTime value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WriteDataValue(System.Nullable{System.DateTimeOffset},System.Boolean,System.Boolean)">
+            <summary>
+            Writes a nullable .Net data value to the Tiferix.Json data stream.  The data value will be converted by the JsonDataWriter into the appropriate 
+            Json format and then written to the Tiferix.Json stream.  The DateTime portion of DateTimeOffset values will use the DateTimeFormat settings set
+            in the JsonDataWriter class to serialize the DateTime values as Json formatted strings.  Null values will be written according to the Json 
+            standards as the value of 'null', without quotes.  Optionally, a field delimiter and newline character can be written after the value 
+            string to the data stream.
+            </summary>
+            <param name="dtoValue">Nullable DateTimeOffset value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WriteDataValue(System.Nullable{System.TimeSpan},System.Boolean,System.Boolean)">
+            <summary>
+            Writes a nullable .Net data value to the Tiferix.Json data stream.  The data value will be converted by the JsonDataWriter into the appropriate 
+            Json format and then written to the Tiferix.Json stream.  Null values will be written according to the Json standards as the value of 'null',
+            without quotes.  Optionally, a field delimiter and newline character can be written after the value to the data stream.
+            </summary>
+            <param name="tsValue">Nullable TimeSpan value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WriteDataValue(System.Nullable{System.Boolean},System.Boolean,System.Boolean)">
+            <summary>
+            Writes a nullable .Net data value to the Tiferix.Json data stream.  The data value will be converted by the JsonDataWriter into the appropriate 
+            Json format and then written to the Tiferix.Json stream.  Null values will be written according to the Json standards as the value of 'null',
+            without quotes.  Optionally, a field delimiter and newline character can be written after the value to the data stream.
+            </summary>
+            <param name="blValue">Nullable Boolean value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WriteDataValue(System.Object,System.Boolean,System.Boolean)">
+            <summary>
+            Writes a .Net data value to the Tiferix.Json data stream.  If the data value is passed as an object to the WriteDataValue function, then the 
+            data type of the object first will be detected.  Once the data type is detected, the data then will be converted by the JsonDataWriter into the
+            appropriate Json format and then written to the Tiferix.Json stream.  Null values will be written according to the Json standards as the value
+            of 'null', without quotes.  Optionally, a field delimiter and newline character can be written after the value to the data stream.
+            </summary>
+            <param name="oValue">Data value of supported .Net data type passed as an object to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WriteDataValue(System.Byte[],System.Boolean,System.Boolean)">
+            <summary>
+            Writes a binary chunk of data to the Tiferix.Json data stream.  Because of the nature of how binary data is stored in string files, it will be 
+            necessary to use a Base64 encoded string to store the binary data.  All binary values will be converted into Base64 encoded strings, which 
+            can then be encoded back into .Net byte arrays.  Base64 encoding guarantees no loss of data of the binary data in the Json data file.  
+            Once converted into Base64 encoded strings by the JsonDataWriterClass, the data will be then written to the Tiferix.Json stream.
+            Optionally, a field delimiter and newline character can be written after the value to the data stream.
+            </summary>
+            <param name="bufValue">Binary value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WriteDataValue(System.Uri,System.Boolean,System.Boolean)">
+            <summary>
+            Writes a .Net data value to the Tiferix.Json data stream.  The data value will be converted by the JsonDataWriter into the appropriate Json 
+            format and then written to the Tiferix.Json stream.  Optionally, a field delimiter and newline character can be written after the value
+            string to the data stream.
+            </summary>
+            <param name="uriValue">Uri value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WriteDataValue(System.Guid,System.Boolean,System.Boolean)">
+            <summary>
+            Writes a .Net data value to the Tiferix.Json data stream.  The data value will be converted by the JsonDataWriter into the appropriate Json 
+            format and then written to the Tiferix.Json stream.  Optionally, a field delimiter and newline character can be written after the value
+            string to the data stream.
+            </summary>
+            <param name="guidValue">Guid value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WriteDataNullValue(System.Boolean,System.Boolean)">
+            <summary>
+            Writes a null value to the Tiferix.Json data stream.   Null values will be written according to the Json standards as the value of 'null',
+            without quotes.  Optionally, a field delimiter and newline character can be written after the value to the data stream.
+            </summary>        
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WritePropDataValue(System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Writes both the name of the property and its associated .Net data value to the Tiferix.Json data stream.  The property name and value will 
+            be written in the proper Json format of "PropertyName: " {data value}.  The data value will be converted by the JsonDataWriter into the 
+            appropriate Json format and then written to the Tiferix.Json stream.  Optionally, a field delimiter and newline character can be written after the value
+            string to the data stream.
+            </summary>
+            <param name="strPropName">The name of the property.</param>
+            <param name="strValue">String value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WritePropDataValue(System.String,System.Byte,System.Boolean,System.Boolean)">
+            <summary>
+            Writes both the name of the property and its associated .Net data value to the Tiferix.Json data stream.  The property name and value will 
+            be written in the proper Json format of "PropertyName: " {data value}.  The data value will be converted by the JsonDataWriter into the 
+            appropriate Json format and then written to the Tiferix.Json stream.  Optionally, a field delimiter and newline character can be written after the value
+            string to the data stream.
+            </summary>
+            <param name="strPropName">The name of the property.</param>
+            <param name="bValue">Byte value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WritePropDataValue(System.String,System.Int16,System.Boolean,System.Boolean)">
+            <summary>
+            Writes both the name of the property and its associated .Net data value to the Tiferix.Json data stream.  The property name and value will 
+            be written in the proper Json format of "PropertyName: " {data value}.  The data value will be converted by the JsonDataWriter into the 
+            appropriate Json format and then written to the Tiferix.Json stream.  Optionally, a field delimiter and newline character can be written after the value
+            string to the data stream.
+            </summary>
+            <param name="strPropName">The name of the property.</param>
+            <param name="siValue">Int16 value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WritePropDataValue(System.String,System.Int32,System.Boolean,System.Boolean)">
+            <summary>
+            Writes both the name of the property and its associated .Net data value to the Tiferix.Json data stream.  The property name and value will 
+            be written in the proper Json format of "PropertyName: " {data value}.  The data value will be converted by the JsonDataWriter into the 
+            appropriate Json format and then written to the Tiferix.Json stream.  Optionally, a field delimiter and newline character can be written after the value
+            string to the data stream.
+            </summary>
+            <param name="strPropName">The name of the property.</param>
+            <param name="iValue">Int32 value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WritePropDataValue(System.String,System.Int64,System.Boolean,System.Boolean)">
+            <summary>
+            Writes both the name of the property and its associated .Net data value to the Tiferix.Json data stream.  The property name and value will 
+            be written in the proper Json format of "PropertyName: " {data value}.  The data value will be converted by the JsonDataWriter into the 
+            appropriate Json format and then written to the Tiferix.Json stream.  Optionally, a field delimiter and newline character can be written after the value
+            string to the data stream.
+            </summary>
+            <param name="strPropName">The name of the property.</param>
+            <param name="lValue">Int64 value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WritePropDataValue(System.String,System.Single,System.Boolean,System.Boolean)">
+            <summary>
+            Writes both the name of the property and its associated .Net data value to the Tiferix.Json data stream.  The property name and value will 
+            be written in the proper Json format of "PropertyName: " {data value}.  The data value will be converted by the JsonDataWriter into the 
+            appropriate Json format and then written to the Tiferix.Json stream.  Optionally, a field delimiter and newline character can be written after the value
+            string to the data stream.
+            </summary>
+            <param name="strPropName">The name of the property.</param>
+            <param name="fValue">Float value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WritePropDataValue(System.String,System.Double,System.Boolean,System.Boolean)">
+            <summary>
+            Writes both the name of the property and its associated .Net data value to the Tiferix.Json data stream.  The property name and value will 
+            be written in the proper Json format of "PropertyName: " {data value}.  The data value will be converted by the JsonDataWriter into the 
+            appropriate Json format and then written to the Tiferix.Json stream.  Optionally, a field delimiter and newline character can be written after the value
+            string to the data stream.
+            </summary>
+            <param name="strPropName">The name of the property.</param>
+            <param name="dValue">Double value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WritePropDataValue(System.String,System.Decimal,System.Boolean,System.Boolean)">
+            <summary>
+            Writes both the name of the property and its associated .Net data value to the Tiferix.Json data stream.  The property name and value will 
+            be written in the proper Json format of "PropertyName: " {data value}.  The data value will be converted by the JsonDataWriter into the 
+            appropriate Json format and then written to the Tiferix.Json stream.  Optionally, a field delimiter and newline character can be written after the value
+            string to the data stream.
+            </summary>
+            <param name="strPropName">The name of the property.</param>
+            <param name="mValue">Decimal value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WritePropDataValue(System.String,System.SByte,System.Boolean,System.Boolean)">
+            <summary>
+            Writes both the name of the property and its associated .Net data value to the Tiferix.Json data stream.  The property name and value will 
+            be written in the proper Json format of "PropertyName: " {data value}.  The data value will be converted by the JsonDataWriter into the 
+            appropriate Json format and then written to the Tiferix.Json stream.  Optionally, a field delimiter and newline character can be written after the value
+            string to the data stream.
+            </summary>
+            <param name="strPropName">The name of the property.</param>
+            <param name="sbValue">Signed Byte value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WritePropDataValue(System.String,System.UInt16,System.Boolean,System.Boolean)">
+            <summary>
+            Writes both the name of the property and its associated .Net data value to the Tiferix.Json data stream.  The property name and value will 
+            be written in the proper Json format of "PropertyName: " {data value}.  The data value will be converted by the JsonDataWriter into the 
+            appropriate Json format and then written to the Tiferix.Json stream.  Optionally, a field delimiter and newline character can be written after the value
+            string to the data stream.
+            </summary>
+            <param name="strPropName">The name of the property.</param>
+            <param name="usiValue">UInt16 value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WritePropDataValue(System.String,System.UInt32,System.Boolean,System.Boolean)">
+            <summary>
+            Writes both the name of the property and its associated .Net data value to the Tiferix.Json data stream.  The property name and value will 
+            be written in the proper Json format of "PropertyName: " {data value}.  The data value will be converted by the JsonDataWriter into the 
+            appropriate Json format and then written to the Tiferix.Json stream.  Optionally, a field delimiter and newline character can be written after the value
+            string to the data stream.
+            </summary>
+            <param name="strPropName">The name of the property.</param>
+            <param name="uiValue">UInt32 value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WritePropDataValue(System.String,System.UInt64,System.Boolean,System.Boolean)">
+            <summary>
+            Writes both the name of the property and its associated .Net data value to the Tiferix.Json data stream.  The property name and value will 
+            be written in the proper Json format of "PropertyName: " {data value}.  The data value will be converted by the JsonDataWriter into the 
+            appropriate Json format and then written to the Tiferix.Json stream.  Optionally, a field delimiter and newline character can be written after the value
+            string to the data stream.
+            </summary>
+            <param name="strPropName">The name of the property.</param>
+            <param name="ulValue">UInt64 value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WritePropDataValue(System.String,System.Char,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Writes both the name of the property and its associated .Net data value to the Tiferix.Json data stream.  The property name and value will 
+            be written in the proper Json format of "PropertyName: " {data value}.  Char values can either be written as Json formatted string or numeric values.  
+            The data value will be converted by the JsonDataWriter into the appropriate Json format and then written to the Tiferix.Json stream.  
+            Optionally, a field delimiter and newline character can be written after the value string to the data stream.
+            </summary>
+            <param name="strPropName">The name of the property.</param>
+            <param name="cValue">Char value to write to the Tiferix.Json data stream.</param>
+            <param name="blSurroundQuotes"> If the SurroundQuotes parameter is set to true, then the char value will be written as a Json formatted 
+            string with quotes surrounded by the char value.  If set to false, then the char will be written as a single character value to the stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WritePropDataValue(System.String,System.DateTime,System.Boolean,System.Boolean)">
+            <summary>
+            Writes both the name of the property and its associated .Net data value to the Tiferix.Json data stream.  The property name and value will 
+            be written in the proper Json format of "PropertyName: " {data value}.  DateTime values will use the DateTimeFormat settings set in the 
+            JsonDataWriter class to serialize the DateTime values as Json formatted strings.  The data value will be converted by the JsonDataWriter into 
+            the appropriate Json format and then written to the Tiferix.Json stream.  Optionally, a field delimiter and newline character can be written 
+            after the numeric value string to the data stream.
+            </summary>
+            <param name="strPropName">The name of the property.</param>
+            <param name="datValue">DateTime value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WritePropDataValue(System.String,System.DateTimeOffset,System.Boolean,System.Boolean)">
+            <summary>
+            Writes both the name of the property and its associated .Net data value to the Tiferix.Json data stream.  The property name and value will 
+            be written in the proper Json format of "PropertyName: " {data value}.  The DateTime portion of DateTimeOffset values will use the DateTimeFormat settings set
+            in the JsonDataWriter class to serialize the DateTime values as Json formatted strings.  The data value will be converted by the JsonDataWriter into 
+            the appropriate Json format and then written to the Tiferix.Json stream.  Optionally, a field delimiter and newline character can be written 
+            after the numeric value string to the data stream.
+            </summary>
+            <param name="strPropName">The name of the property.</param>
+            <param name="dtoValue">DateTimeOffset value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WritePropDataValue(System.String,System.TimeSpan,System.Boolean,System.Boolean)">
+            <summary>
+            Writes both the name of the property and its associated .Net data value to the Tiferix.Json data stream.  The property name and value will 
+            be written in the proper Json format of "PropertyName: " {data value}.  The data value will be converted by the JsonDataWriter into the 
+            appropriate Json format and then written to the Tiferix.Json stream.  Optionally, a field delimiter and newline character can be written after the value
+            string to the data stream.
+            </summary>
+            <param name="strPropName">The name of the property.</param>
+            <param name="tsValue">TimeSpan value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WritePropDataValue(System.String,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Writes both the name of the property and its associated .Net data value to the Tiferix.Json data stream.  The property name and value will 
+            be written in the proper Json format of "PropertyName: " {data value}.  The data value will be converted by the JsonDataWriter into the 
+            appropriate Json format and then written to the Tiferix.Json stream.  Optionally, a field delimiter and newline character can be written after the value
+            string to the data stream.
+            </summary>
+            <param name="strPropName">The name of the property.</param>
+            <param name="blValue">Boolean value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WritePropDataValue(System.String,System.Nullable{System.Byte},System.Boolean,System.Boolean)">
+            <summary>
+            Writes both the name of the property and its associated nullable .Net data value to the Tiferix.Json data stream.  The property name and value will 
+            be written in the proper Json format of "PropertyName: " {data value}.  Null values will be written according to the Json standards as the value of 'null',
+            without quotes.  The data value will be converted by the JsonDataWriter into the appropriate Json format and then written to the Tiferix.Json 
+            stream.  Optionally, a field delimiter and newline character can be written after the value string to the data stream.
+            </summary>
+            <param name="strPropName">The name of the property.</param>
+            <param name="bValue">Nullable Byte value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WritePropDataValue(System.String,System.Nullable{System.Int16},System.Boolean,System.Boolean)">
+            <summary>
+            Writes both the name of the property and its associated nullable .Net data value to the Tiferix.Json data stream.  The property name and value will 
+            be written in the proper Json format of "PropertyName: " {data value}.  Null values will be written according to the Json standards as the value of 'null',
+            without quotes.  The data value will be converted by the JsonDataWriter into the appropriate Json format and then written to the Tiferix.Json 
+            stream.  Optionally, a field delimiter and newline character can be written after the value string to the data stream.
+            </summary>
+            <param name="strPropName">The name of the property.</param>
+            <param name="siValue">Nullable Int16 value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WritePropDataValue(System.String,System.Nullable{System.Int32},System.Boolean,System.Boolean)">
+            <summary>
+            Writes both the name of the property and its associated nullable .Net data value to the Tiferix.Json data stream.  The property name and value will 
+            be written in the proper Json format of "PropertyName: " {data value}.  Null values will be written according to the Json standards as the value of 'null',
+            without quotes.  The data value will be converted by the JsonDataWriter into the appropriate Json format and then written to the Tiferix.Json 
+            stream.  Optionally, a field delimiter and newline character can be written after the value string to the data stream.
+            </summary>
+            <param name="strPropName">The name of the property.</param>
+            <param name="iValue">Nullable Int32 value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WritePropDataValue(System.String,System.Nullable{System.Int64},System.Boolean,System.Boolean)">
+            <summary>
+            Writes both the name of the property and its associated nullable .Net data value to the Tiferix.Json data stream.  The property name and value will 
+            be written in the proper Json format of "PropertyName: " {data value}.  Null values will be written according to the Json standards as the value of 'null',
+            without quotes.  The data value will be converted by the JsonDataWriter into the appropriate Json format and then written to the Tiferix.Json 
+            stream.  Optionally, a field delimiter and newline character can be written after the value string to the data stream.
+            </summary>
+            <param name="strPropName">The name of the property.</param>
+            <param name="lValue">Nullable Int64 value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WritePropDataValue(System.String,System.Nullable{System.Single},System.Boolean,System.Boolean)">
+            <summary>
+            Writes both the name of the property and its associated nullable .Net data value to the Tiferix.Json data stream.  The property name and value will 
+            be written in the proper Json format of "PropertyName: " {data value}.  Null values will be written according to the Json standards as the value of 'null',
+            without quotes.  The data value will be converted by the JsonDataWriter into the appropriate Json format and then written to the Tiferix.Json 
+            stream.  Optionally, a field delimiter and newline character can be written after the value string to the data stream.
+            </summary>
+            <param name="strPropName">The name of the property.</param>
+            <param name="fValue">Nullable Float value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WritePropDataValue(System.String,System.Nullable{System.Double},System.Boolean,System.Boolean)">
+            <summary>
+            Writes both the name of the property and its associated nullable .Net data value to the Tiferix.Json data stream.  The property name and value will 
+            be written in the proper Json format of "PropertyName: " {data value}.  Null values will be written according to the Json standards as the value of 'null',
+            without quotes.  The data value will be converted by the JsonDataWriter into the appropriate Json format and then written to the Tiferix.Json 
+            stream.  Optionally, a field delimiter and newline character can be written after the value string to the data stream.
+            </summary>
+            <param name="strPropName">The name of the property.</param>
+            <param name="dValue">Nullable Double value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WritePropDataValue(System.String,System.Nullable{System.Decimal},System.Boolean,System.Boolean)">
+            <summary>
+            Writes both the name of the property and its associated nullable .Net data value to the Tiferix.Json data stream.  The property name and value will 
+            be written in the proper Json format of "PropertyName: " {data value}.  Null values will be written according to the Json standards as the value of 'null',
+            without quotes.  The data value will be converted by the JsonDataWriter into the appropriate Json format and then written to the Tiferix.Json 
+            stream.  Optionally, a field delimiter and newline character can be written after the value string to the data stream.
+            </summary>
+            <param name="strPropName">The name of the property.</param>
+            <param name="mValue">Nullable Decimal value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WritePropDataValue(System.String,System.Nullable{System.SByte},System.Boolean,System.Boolean)">
+            <summary>
+            Writes both the name of the property and its associated nullable .Net data value to the Tiferix.Json data stream.  The property name and value will 
+            be written in the proper Json format of "PropertyName: " {data value}.  Null values will be written according to the Json standards as the value of 'null',
+            without quotes.  The data value will be converted by the JsonDataWriter into the appropriate Json format and then written to the Tiferix.Json 
+            stream.  Optionally, a field delimiter and newline character can be written after the value string to the data stream.
+            </summary>
+            <param name="strPropName">The name of the property.</param>
+            <param name="sbValue">Nullable Signed Byte value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WritePropDataValue(System.String,System.Nullable{System.UInt16},System.Boolean,System.Boolean)">
+            <summary>
+            Writes both the name of the property and its associated nullable .Net data value to the Tiferix.Json data stream.  The property name and value will 
+            be written in the proper Json format of "PropertyName: " {data value}.  Null values will be written according to the Json standards as the value of 'null',
+            without quotes.  The data value will be converted by the JsonDataWriter into the appropriate Json format and then written to the Tiferix.Json 
+            stream.  Optionally, a field delimiter and newline character can be written after the value string to the data stream.
+            </summary>
+            <param name="strPropName">The name of the property.</param>
+            <param name="usiValue">Nullable UInt16 value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WritePropDataValue(System.String,System.Nullable{System.UInt32},System.Boolean,System.Boolean)">
+            <summary>
+            Writes both the name of the property and its associated nullable .Net data value to the Tiferix.Json data stream.  The property name and value will 
+            be written in the proper Json format of "PropertyName: " {data value}.  Null values will be written according to the Json standards as the value of 'null',
+            without quotes.  The data value will be converted by the JsonDataWriter into the appropriate Json format and then written to the Tiferix.Json 
+            stream.  Optionally, a field delimiter and newline character can be written after the value string to the data stream.
+            </summary>
+            <param name="strPropName">The name of the property.</param>
+            <param name="uiValue">Nullable UInt32 value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WritePropDataValue(System.String,System.Nullable{System.UInt64},System.Boolean,System.Boolean)">
+            <summary>
+            Writes both the name of the property and its associated nullable .Net data value to the Tiferix.Json data stream.  The property name and value will 
+            be written in the proper Json format of "PropertyName: " {data value}.  Null values will be written according to the Json standards as the value of 'null',
+            without quotes.  The data value will be converted by the JsonDataWriter into the appropriate Json format and then written to the Tiferix.Json 
+            stream.  Optionally, a field delimiter and newline character can be written after the value string to the data stream.
+            </summary>
+            <param name="strPropName">The name of the property.</param>
+            <param name="ulValue">Nullable UInt64 value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WritePropDataValue(System.String,System.Nullable{System.Char},System.Boolean,System.Boolean)">
+            <summary>
+            Writes both the name of the property and its associated nullable .Net data value to the Tiferix.Json data stream.  The property name and value will 
+            be written in the proper Json format of "PropertyName: " {data value}.  Char values can either be written as Json formatted string or numeric values.
+            Null values will be written according to the Json standards as the value of 'null', without quotes.  The data value will be converted by the JsonDataWriter
+            into the appropriate Json format and then written to the Tiferix.Json stream.  Optionally, a field delimiter and newline character can be 
+            written after the value string to the data stream.
+            </summary>
+            <param name="strPropName">The name of the property.</param>
+            <param name="cValue">Char value to write to the Tiferix.Json data stream.</param>
+            <param name="blSurroundQuotes"> If the SurroundQuotes parameter is set to true, then the char value will be written as a Json formatted 
+            string with quotes surrounded by the char value.  If set to false, then the char will be written as a single character value to the stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WritePropDataValue(System.String,System.Nullable{System.DateTime},System.Boolean,System.Boolean)">
+            <summary>
+            Writes both the name of the property and its associated nullable .Net data value to the Tiferix.Json data stream.  The property name and value will 
+            be written in the proper Json format of "PropertyName: " {data value}.  DateTime values will use the DateTimeFormat settings set in the 
+            JsonDataWriter class to serialize the DateTime values as Json formatted strings.  Null values will be written according to the Json standards
+            as the value of 'null', without quotes.  The data value will be converted by the JsonDataWriter into the appropriate Json format and then 
+            written to the Tiferix.Json stream.  Optionally, a field delimiter and newline character can be written after the value string to the data stream.
+            </summary>
+            <param name="strPropName">The name of the property.</param>
+            <param name="datValue">Nullable DateTime value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WritePropDataValue(System.String,System.Nullable{System.DateTimeOffset},System.Boolean,System.Boolean)">
+            <summary>
+            Writes both the name of the property and its associated nullable .Net data value to the Tiferix.Json data stream.  The property name and value will 
+            be written in the proper Json format of "PropertyName: " {data value}.  The DateTime portion of DateTimeOffset values will use the DateTimeFormat
+            settings set in the JsonDataWriter class to serialize the DateTime values as Json formatted strings.  Null values will be written according to 
+            the Json standards as the value of 'null', without quotes.  The data value will be converted by the JsonDataWriter into the appropriate Json 
+            format and then written to the Tiferix.Json stream.  Optionally, a field delimiter and newline character can be written after the value string to
+            the data stream.
+            </summary>
+            <param name="strPropName">The name of the property.</param>
+            <param name="dtoValue">Nullable DateTimeOffset value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WritePropDataValue(System.String,System.Nullable{System.TimeSpan},System.Boolean,System.Boolean)">
+            <summary>
+            Writes both the name of the property and its associated nullable .Net data value to the Tiferix.Json data stream.  The property name and value will 
+            be written in the proper Json format of "PropertyName: " {data value}.  Null values will be written according to the Json standards as the value of 'null',
+            without quotes.  The data value will be converted by the JsonDataWriter into the appropriate Json format and then written to the Tiferix.Json 
+            stream.  Optionally, a field delimiter and newline character can be written after the value string to the data stream.
+            </summary>
+            <param name="strPropName">The name of the property.</param>
+            <param name="tsValue">Nullable TimeSpan value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WritePropDataValue(System.String,System.Nullable{System.Boolean},System.Boolean,System.Boolean)">
+            <summary>
+            Writes both the name of the property and its associated nullable .Net data value to the Tiferix.Json data stream.  The property name and value will 
+            be written in the proper Json format of "PropertyName: " {data value}.  Null values will be written according to the Json standards as the value of 'null',
+            without quotes.  The data value will be converted by the JsonDataWriter into the appropriate Json format and then written to the Tiferix.Json 
+            stream.  Optionally, a field delimiter and newline character can be written after the value string to the data stream.
+            </summary>
+            <param name="strPropName">The name of the property.</param>
+            <param name="blValue">Nullable Boolean value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WritePropDataValue(System.String,System.Object,System.Boolean,System.Boolean)">
+            <summary>
+            Writes both the name of the property and its associated .Net data value to the Tiferix.Json data stream.  The property name and value will 
+            be written in the proper Json format of "PropertyName: " {data value}.  If the data value is passed as an object to the WritePropDataValue
+            function, then the data type of the object first will be detected.  Once the data type is detected, the data then will be converted by the 
+            JsonDataWriter into the appropriate Json format and then written to the Tiferix.Json stream.  Null values will be written according to the 
+            Json standards as the value of 'null', without quotes.  Optionally, a field delimiter and newline character can be written after the value
+            string to the data stream.
+            </summary>
+            <param name="strPropName">The name of the property.</param>
+            <param name="oValue">Data value of supported .Net data type passed as an object to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WritePropDataValue(System.String,System.Byte[],System.Boolean,System.Boolean)">
+            <summary>
+            Writes both the name of the property and its associated binary chunk of data to the Tiferix.Json data stream.  The property name and value 
+            will be written in the proper Json format of "PropertyName: " {data value}.  Because of the nature of how binary data is stored in string files,
+            it will be necessary to use a Base64 encoded string to store the binary data.  All binary values will be converted into Base64 encoded strings,
+            which can then be encoded back into .Net byte arrays.  Base64 encoding guarantees no loss of data of the binary data in the Json data file.  
+            Once converted into Base64 encoded strings by the JsonDataWriterClass, the data will be then written to the Tiferix.Json stream.  Optionally,
+            a field delimiter and newline character can be written after the value to the data stream.
+            </summary>
+            <param name="strPropName">The name of the property.</param>
+            <param name="bufValue">Binary value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WritePropDataValue(System.String,System.Uri,System.Boolean,System.Boolean)">
+            <summary>
+            Writes both the name of the property and its associated .Net data value to the Tiferix.Json data stream.  The property name and value will 
+            be written in the proper Json format of "PropertyName: " {data value}.  The data value will be converted by the JsonDataWriter into the 
+            appropriate Json format and then written to the Tiferix.Json stream.  Optionally, a field delimiter and newline character can be written after the value
+            string to the data stream.
+            </summary>
+            <param name="strPropName">The name of the property.</param>
+            <param name="uriValue">Uri value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WritePropDataValue(System.String,System.Guid,System.Boolean,System.Boolean)">
+            <summary>
+            Writes both the name of the property and its associated .Net data value to the Tiferix.Json data stream.  The property name and value will 
+            be written in the proper Json format of "PropertyName: " {data value}.  The data value will be converted by the JsonDataWriter into the 
+            appropriate Json format and then written to the Tiferix.Json stream.  Optionally, a field delimiter and newline character can be written after the value
+            string to the data stream.
+            </summary>
+            <param name="strPropName">The name of the property.</param>
+            <param name="guidValue">Guid value to write to the Tiferix.Json data stream.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+        <member name="M:Tiferix.Json.Tools.JsonDataWriter.WritePropDataNullValue(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Writes both the name of a property and its associated null value to the Tiferix.Json data stream.   The property name and value will 
+            be written in the proper Json format of "PropertyName: " {data value}.  Null values will be written according to the Json standards as the 
+            value of 'null', without quotes.  Optionally, a field delimiter and newline character can be written after the value to the data stream.
+            </summary>        
+            <param name="strPropName">The name of the property.</param>
+            <param name="blAddFieldDelimiter">Indicates if a field delimiter character will be written to the stream after the data value.</param>
+            <param name="blNewLine">Indicates if a newline character will be written to the stream after the data value and field delimiter character
+            (if a delimiter is used).</param>
+        </member>
+    </members>
+</doc>

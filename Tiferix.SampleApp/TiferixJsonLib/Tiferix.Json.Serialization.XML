@@ -1,0 +1,368 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Tiferix.Json.Serialization</name>
+    </assembly>
+    <members>
+        <member name="T:Tiferix.Json.Serialization.JsonDataSetSchemaSerializer">
+            <summary>
+            The JsonDataSetSchema class will be used to serialize and deserialize the schema information used to initialize DataSet objects and which are 
+            also associated with Tiferix.JsonDataSet data files to and from Tiferix.JsonDataSetSchema files.  This class will utilize the JsonDataSetSchemaParser
+            class to read and extract all schema data from the JsonDataSetSchema data files stored in a format compatible with the Tiferix.Json library.  
+            In the case of serialization, the JsonDataSetSchemaSerializer class will utilize the JsonDataWriter class to read the schema information from 
+            a DataSet object and extract and serialize the data to the appropriate format in a JsonDataSetSchema file.    
+            </summary>
+        </member>
+        <member name="M:Tiferix.Json.Serialization.JsonDataSetSchemaSerializer.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:Tiferix.Json.Serialization.JsonDataSetSchemaSerializer.Dispose">
+            <summary>
+            Public implementation of Dispose pattern callable by consumers.
+            </summary>
+        </member>
+        <member name="M:Tiferix.Json.Serialization.JsonDataSetSchemaSerializer.Dispose(System.Boolean)">
+            <summary>
+            Protected implementation of Dispose pattern.
+            </summary>
+            <param name="disposing"></param>
+        </member>
+        <member name="M:Tiferix.Json.Serialization.JsonDataSetSchemaSerializer.Finalize">
+            <summary>
+            Destructor
+            </summary>
+        </member>
+        <member name="M:Tiferix.Json.Serialization.JsonDataSetSchemaSerializer.DeserializeJsonDataSetSchema(System.IO.Stream,System.Data.DataSet@)">
+            <summary>
+            Parses and deserializes the JsonDataSetSchema data stream into a DataSet object with the schema information stored in the data stream.
+            The JsonDataSetSchemaParser class will be used to extract all the schema data in the stream into a JsonDataSetSchema object which then
+            will be deserialized and used to initialize the schema of the DataSet object.
+            </summary>
+            <param name="streamSchema">The stream that will access the JsonDataSetSchema file data.</param>
+            <param name="dsData">A reference to a DataSet that will be initialized with the schema data contained in the JsonDataSetSchema data stream.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiferix.Json.Serialization.JsonDataSetSchemaSerializer.DeserializeJsonDataSetSchema(System.IO.Stream)">
+            <summary>
+            Parses and deserializes the JsonDataSetSchema data stream into a DataSet object with schema information stored in the data stream.
+            The JsonDataSetSchemaParser class will be used to extract all the schema data in the stream into a JsonDataSetSchema object which then
+            will be deserialized and used to initialize the schema of the DataSet object.
+            </summary>
+            <param name="streamSchema">The stream that will access the JsonDataSetSchema file data.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiferix.Json.Serialization.JsonDataSetSchemaSerializer.DeserializeJsonDataSetSchema(System.String,System.Data.DataSet@)">
+            <summary>
+            Parses and deserializes the JsonDataSetSchema file into a DataSet object with schema information stored in the schema file. 
+            The JsonDataSetSchemaParser class will be used to extract all the schema data in the file into a JsonDataSetSchema object which then 
+            will be deserialized and used to initialize the schema of the DataSet object.
+            </summary>
+            <param name="strFileName">The full name and path of the JsonDataSetSchema file to be deserialized.</param>
+            <param name="dsData">A reference to a DataSet that will be initialized with the schema data contained in the JsonDataSetSchema data file.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiferix.Json.Serialization.JsonDataSetSchemaSerializer.DeserializeJsonDataSetSchema(System.String)">
+            <summary>
+            Parses and deserializes the JsonDataSetSchema file into a DataSet object with schema information stored in the schema file. 
+            The JsonDataSetSchemaParser class will be used to extract all the schema data in the file into a JsonDataSetSchema object which then 
+            will be deserialized and used to initialize the schema of the DataSet object.
+            </summary>
+            <param name="strFileName">The full name and path of the JsonDataSetSchema file to be deserialized.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiferix.Json.Serialization.JsonDataSetSchemaSerializer.DeserializeJsonTableSchema(Tiferix.Json.Data.JsonTableSchema)">
+            <summary>
+            An internal function that will deserialize the schema information contained in the JsonTableSchema passed to the function into an ADO.Net 
+            DataTable object which will then be returned by the function.  The JsonTableSchema object should have been previously loaded from the 
+            JsonDataSetSchema file before calling this function.  The function will properly convert, map and load all the appropriate columns and 
+            table settings of the DataTable with the schema information stored in the JsonTableSchema object.
+            </summary>
+            <param name="jsonTblSchema">JsonTableSchema object containing the schema information to deserialize to a DataTable.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiferix.Json.Serialization.JsonDataSetSchemaSerializer.DeserializeJsonTableSchema(System.IO.Stream)">
+            <summary>
+            Parses and deserializes the JsonTableSchema data stream into a DataTable object with the schema information stored in the data stream.
+            The JsonDataSetSchemaParser class will be used to extract all the schema data in the stream into a JsonTableSchema object which then
+            will be deserialized and used to initialize the schema of the DataTable object.
+            </summary>
+            <param name="streamSchema">The stream that will access the JsonTableSchema file data.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiferix.Json.Serialization.JsonDataSetSchemaSerializer.DeserializeJsonTableSchema(System.String)">
+            <summary>
+            Parses and deserializes the JsonTableSchema file into a DataTable object with the schema information stored in the schema file.
+            The JsonDataSetSchemaParser class will be used to extract all the schema data in the stream into a JsonTableSchema object which then
+            will be deserialized and used to initialize the schema of the DataTable object.
+            </summary>
+            <param name="strFileName">The full name and path of the JsonTableSchema file to deserialize.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiferix.Json.Serialization.JsonDataSetSchemaSerializer.SerializeDataSetSchema(System.Data.DataSet)">
+            <summary>
+            Serializes the schema of a DataSet into to a Tiferix JsonDataSetSchema object which can then be stored in a JsonDataSetSchema file.
+            This version of the function will also be used internally to serialize a DataSet into a JsonDataSetSchema object before writing the schema 
+            information to a data stream or file on disk.
+            </summary>
+            <param name="dsSchema">DataSet with schema to be serialized to JsonDataSetSchema object.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiferix.Json.Serialization.JsonDataSetSchemaSerializer.SerializeDataSetSchema(System.IO.Stream,System.Data.DataSet)">
+            <summary>
+            Serializes the schema of a DataSet to a Tiferix JsonDataSetSchema stream.  The function will utilize the JsonDataWriter object to extract all 
+            data from the DataSet and write it the appropriate format into the Tiferix.JsonDataSetSchema data stream.   All .Net DataSet objects will first be 
+            extracted and serialized into JsonDataSetSchema objects which will then be written to the JsonDataSchema data stream.
+            </summary>
+            <param name="streamSchema">JsonDataSetSchema data stream that will be used to serialize the schema information from the DataSet.</param>
+            <param name="dsSchema">DataSet with schema to be serialized to JsonDataSetSchema data stream.</param>
+        </member>
+        <member name="M:Tiferix.Json.Serialization.JsonDataSetSchemaSerializer.SerializeDataSetSchema(System.String,System.Data.DataSet)">
+            <summary>
+            Serializes the schema of a DataSet to a Tiferix JsonDataSetSchema file.  The function will utilize the JsonDataWriter object to extract all 
+            data from the DataSet and write it the appropriate format into the Tiferix.JsonDataSet file.   All .Net DataSet objects will first be 
+            extracted and serialized into JsonDataSetSchema objects which will then be written to JsonDataSchema file.
+            </summary>
+            <param name="strFileName">The full name and path of the JsonDataSetSchema file to be serialized with the schema information of the
+            DataSet.</param>
+            <param name="dsSchema">DataSet with schema to be serialized to JsonDataSetSchema file.</param>
+        </member>
+        <member name="M:Tiferix.Json.Serialization.JsonDataSetSchemaSerializer.SerializeTableSchema(System.Data.DataTable)">
+            <summary>
+            Serializes the schema of a DataTable into to a Tiferix JsonTableSchema object which can then be stored in a JsonDataSetSchema file.
+            This version of the function will also be used internally to serialize a DataSet or DataTable into a JsonDataSetSchema/JsonTableSchema
+            object before writing the schema information to a data stream or file on disk.
+            </summary>
+            <param name="dtSchema">DataTable with schema to be serialized to JsonTableSchema object.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiferix.Json.Serialization.JsonDataSetSchemaSerializer.SerializeTableSchema(Tiferix.Json.Tools.JsonDataWriter,Tiferix.Json.Data.JsonTableSchema)">
+            <summary>
+            An internal function that will use a JsonDataWriter object to serialize the data stored in a JsonTableSchema object to a JsonDataSetSchema 
+            data stream or file.  The JsonTableSchema object will have been previously loaded before the function is called and the JsonDataWriter
+            will be positioned at the next table schema record in the data stream.
+            </summary>
+            <param name="jwrtSchema">JsonDataWriter object used for serializing the schema information of the DataTable to the JsonDataSetSchema
+            data stream.</param>
+            <param name="tblSchema">The JsonTableSchema object containing all the schema information of a DataTable to serialize to the JsonDataSetSchema 
+            data stream.</param>
+        </member>
+        <member name="M:Tiferix.Json.Serialization.JsonDataSetSchemaSerializer.SerializeTableSchema(System.IO.Stream,System.Data.DataTable)">
+            <summary>
+            Serializes the schema of a DataTable to a Tiferix JsonTableSchema stream.  The function will utilize the JsonDataWriter object to extract all 
+            data from the DataTable and write it the appropriate format into the Tiferix.JsonTableSchema data stream.   All .Net DataTable objects will
+            first be extracted and serialized into JsonTableSchema objects which will then be written to the JsonTableSchema data stream.
+            </summary>
+            <param name="streamSchema">JsonTableSchema data stream that will be used to serialize the schema information from the DataTable.</param>
+            <param name="dtSchema">DataTable with schema to be serialized to JsonTableSchema data stream.</param>
+        </member>
+        <member name="M:Tiferix.Json.Serialization.JsonDataSetSchemaSerializer.SerializeTableSchema(System.String,System.Data.DataTable)">
+            <summary>
+            Serializes the schema of a DataTable to a Tiferix JsonTableSchema file.  The function will utilize the JsonDataWriter object to extract all 
+            data from the DataTable and write it the appropriate format into the Tiferix.JsonTableSchema file.   All .Net DataTable objects will
+            first be extracted and serialized into JsonTableSchema objects which will then be written to the JsonTableSchema file.
+            </summary>
+            <param name="strFileName">The full name and path of the JsonTableSchema file to be serialized with the schema information of the
+            DataTable.</param>
+            <param name="dtSchema">DataTable with schema to be serialized to JsonTableSchema file.</param>
+        </member>
+        <member name="T:Tiferix.Json.Serialization.JsonDataSetSerializer">
+            <summary>
+            The JsonDataSetSerializer class will be used to serialize and deserialize the data contained in DataSet objects to and from Tiferix.JsonDataSet 
+            data files.   This class will utilize the JsonDataSetParser class to read and extract all data from the JsonDataSet data files stored in a 
+            format compatible with the Tiferix.Json library.   In the case of serialization, the JsonDataSetSerializer class will utilize the JsonDataWriter class 
+            to read all the data from a DataSet object and extract and serialize the data to the appropriate format in a JsonDataSet data file.
+            NOTE: The JsonDataSetSerializer class only handles serialization and deserialization of data to and from ADO.Net DataSets.  In future versions 
+            a Serializer library will be constructed to handle serializing and deserializing data to and from .Net classes and various types of objects.
+            </summary>
+        </member>
+        <member name="M:Tiferix.Json.Serialization.JsonDataSetSerializer.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:Tiferix.Json.Serialization.JsonDataSetSerializer.InitializeDataSetSerializer">
+            <summary>
+            Initializes the JsonDataSetSerializer class with the appropriate default serialization and deserialization settings.
+            </summary>
+        </member>
+        <member name="M:Tiferix.Json.Serialization.JsonDataSetSerializer.Dispose">
+            <summary>
+            Public implementation of Dispose pattern callable by consumers.
+            </summary>
+        </member>
+        <member name="M:Tiferix.Json.Serialization.JsonDataSetSerializer.Dispose(System.Boolean)">
+            <summary>
+            Protected implementation of Dispose pattern.
+            </summary>
+            <param name="disposing"></param>
+        </member>
+        <member name="M:Tiferix.Json.Serialization.JsonDataSetSerializer.Finalize">
+            <summary>
+            Destructor
+            </summary>
+        </member>
+        <member name="P:Tiferix.Json.Serialization.JsonDataSetSerializer.FieldDelimiter">
+            <summary>
+            The character used for separating invididual fields of a table in the Json DataSet data files.  The default fielf delimiter for separating table fields is a 
+            comma character.
+            </summary>
+        </member>
+        <member name="P:Tiferix.Json.Serialization.JsonDataSetSerializer.Encoding">
+            <summary>
+            The character encoding to be used for the Json DataSet data files, which are always stored in string format.  This will be the character encoding 
+            used for the entire Json data file.  The default character encoding is UTF8.
+            </summary>
+        </member>
+        <member name="P:Tiferix.Json.Serialization.JsonDataSetSerializer.DateTimeFormat">
+            <summary>
+            The format to use for storing Date/Time values in the Json DataSet data file.
+            </summary>
+        </member>
+        <member name="P:Tiferix.Json.Serialization.JsonDataSetSerializer.DateTimeZone">
+            <summary>
+            Indicates which time zone will be associated with the Date/Time values stored in the Json DataSet data file.
+            </summary>
+        </member>
+        <member name="P:Tiferix.Json.Serialization.JsonDataSetSerializer.Culture">
+            <summary>
+            The specific culture or locale  associated with the data stored in the Json DataSet data file.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:Tiferix.Json.Serialization.JsonDataSetSerializer.AutoIdent" -->
+        <member name="P:Tiferix.Json.Serialization.JsonDataSetSerializer.IdentSpacing">
+            <summary>
+            The number of identation characters (usually a space) to use to ident each line of data in the Json DataSet data file.  Each time an identation string 
+            is written, it will use the number of identation spaces specified in this property.  The default number of indentation spaces is 2.
+            </summary>
+        </member>
+        <member name="P:Tiferix.Json.Serialization.JsonDataSetSerializer.IdentChar">
+            <summary>
+            The character used which will represent an identation space in the Json DataSet data file.  Each time an identation string is written, this character 
+            will be written to the Json DataSet data file, using the number of identation spaces specified in the class.  The default identation character is a space.
+            </summary>
+        </member>
+        <member name="M:Tiferix.Json.Serialization.JsonDataSetSerializer.DeserializeJsonDataSet(System.IO.Stream,System.Data.DataSet@,System.Text.Encoding,System.Boolean)">
+            <summary>
+            Parses and deserializes a JsonDataSet data stream into a DataSet object that has been initialized with schema that matches the JsonDataSet 
+            data stream.  The JsonDataSetParser class will be initialized with the appropriate settings and used to read and extract all the appropriate 
+            data stored in the JsonDataSet data stream into the matching tables and records of the DataSet object passed to the function.
+            </summary>
+            <param name="streamJson">The stream that will access the JsonDataSet data file data.</param>
+            <param name="dsDataSet">A reference to a schema filled DataSet that will be loaded with the data from the JsonDataSet data file.</param>
+            <param name="encoding">The character encoding used for the Json DataSet data stream being deserialized.  The default character 
+            encoding is UTF8.</param>
+            <param name="blClearDataSet">Clears the DataSet to be loaded of all previous data it contains before proceeding with the deserialization 
+            operation.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiferix.Json.Serialization.JsonDataSetSerializer.DeserializeJsonDataSet(System.String,System.Data.DataSet@,System.Text.Encoding,System.Boolean)">
+            <summary>
+            Parses and deserializes a JsonDataSet data file into a DataSet object that has been initialized with schema that matches the JsonDataSet 
+            data file.  The JsonDataSetParser class will be initialized with the appropriate settings and used to read and extract all the appropriate 
+            data stored in the JsonDataSet data file into the matching tables and records of the DataSet object passed to the function.
+            </summary>
+            <param name="strFileName">The full name and path to the JsonDataSet data file to be deserialized.</param>
+            <param name="dsDataSet">A reference to a schema filled DataSet that will be loaded with the data from the JsonDataSet data file.</param>
+            <param name="encoding">The character encoding used for the Json DataSet data stream being deserialized.  The default character 
+            encoding is UTF8.</param>
+            <param name="blClearDataSet">Clears the DataSet to be loaded of all previous data it contains before proceeding with the deserialization 
+            operation.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiferix.Json.Serialization.JsonDataSetSerializer.DeserializeJsonTable(System.IO.Stream,System.Data.DataTable@,System.Text.Encoding,System.Boolean)">
+            <summary>
+            Parses and deserializes a JsonTable data stream into a DataTable object that has been initialized with schema that matches the JsonDataTable 
+            data stream.  The JsonDataSetParser class will be initialized with the appropriate settings and used to read and extract all the appropriate 
+            data stored in the JsonTable data stream into the matching records of the DataTable object passed to the function.
+            </summary>
+            <param name="streamJson">The stream that will access the JsonTable data file data.</param>
+            <param name="dtTable">A reference to a schema filled DataTable that will be loaded with the data from the JsonTable data file.</param>
+            <param name="encoding">The character encoding used for the Json Table data stream being deserialized.  The default character 
+            encoding is UTF8.</param>
+            <param name="blClearTable">Clears the DataTable to be loaded of all previous data it contains before proceeding with the deserialization 
+            operation.</param>
+        </member>
+        <member name="M:Tiferix.Json.Serialization.JsonDataSetSerializer.DeserializeJsonTable(System.String,System.Data.DataTable@,System.Text.Encoding,System.Boolean)">
+            <summary>
+            Parses and deserializes a JsonTable data file into a DataTable object that has been initialized with schema that matches the JsonTable 
+            data file.  The JsonDataSetParser class will be initialized with the appropriate settings and used to read and extract all the appropriate 
+            data stored in the JsonTable data file into the matching records of the DataTable object passed to the function.
+            </summary>
+            <param name="strFileName">The full name and path to the JsonTable data file to be deserialized.</param>
+            <param name="dtTable">A reference to a schema filled DataTable that will be loaded with the data from the JsonTable data file.</param>
+            <param name="encoding">The character encoding used for the Json Table data stream being deserialized.  The default character 
+            encoding is UTF8.</param>
+            <param name="blClearTable">Clears the DataTable to be loaded of all previous data it contains before proceeding with the deserialization 
+            operation.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tiferix.Json.Serialization.JsonDataSetSerializer.SerializeDataSet(System.IO.Stream,System.Data.DataSet)">
+            <summary>
+            Serializes the data in a DataSet to a Tiferix JsonDataSet data stream.  The function will utilize the JsonDataWriter object to extract all data from the
+            DataSet and write it the appropriate format into the Tiferix.JsonDataSet data stream.  Before serializing the DataSet, all formatting settings must be set 
+            in the JsonDataSetSerializer class beforehand and it will be required that the same formatting settings bet set when deserializing the
+            JsonDataSet data file.
+            </summary>
+            <param name="stream">JsonDataSet data stream that will be used to serialize data from the DataSet.</param>
+            <param name="dsDataSet">The DataSet object to be serialized to JsonDataSet data stream.</param>
+        </member>
+        <member name="M:Tiferix.Json.Serialization.JsonDataSetSerializer.SerializeDataSet(System.String,System.Data.DataSet)">
+            <summary>
+            Serializes the data in a DataSet to a Tiferix JsonDataSet data file.  The function will utilize the JsonDataWriter object to extract all data from the
+            DataSet and write it the appropriate format into the Tiferix.JsonDataSet data file.  Before serializing the DataSet, all formatting settings must be set 
+            in the JsonDataSetSerializer class beforehand and it will be required that the same formatting settings bet set when deserializing the
+            JsonDataSet data file.
+            </summary>
+            <param name="strFileName">The full name and path of the JsonDataSet data file that will be serialized with the data in the DataSet.</param>
+            <param name="dsDataSet">The DataSet object to be serialized to JsonDataSet data file.</param>
+        </member>
+        <member name="M:Tiferix.Json.Serialization.JsonDataSetSerializer.SerializeDataTable(Tiferix.Json.Tools.JsonDataWriter,System.Data.DataTable)">
+            <summary>
+            An internal function that will serialize the data of each DataTable contained in the DataSet being serialized into the appropriate Table record 
+            in the JsonDataSet data stream.  The JsonDataWriter will contain the active stream of data that should be set at the position where the 
+            table record and its data will be writen in the JsonDataSet data stream.   
+            </summary>
+            <param name="jwrtData">JsonDataWriter object used for serializing DataSet data to JsonDataSet data stream.</param>
+            <param name="dtTable">The DataTable to be serialized to the JsonDataSet data stream.</param>
+        </member>
+        <member name="M:Tiferix.Json.Serialization.JsonDataSetSerializer.SerializeDataTable(System.IO.Stream,System.Data.DataTable)">
+            <summary>
+            Serializes the data in a DataTable to a Tiferix JsonTable data stream.  The function will utilize the JsonDataWriter object to extract all data from the
+            DataTable and write it the appropriate format into the Tiferix.JsonTable data stream.  Before serializing the DataTable, all formatting settings must be set 
+            in the JsonDataSetSerializer class beforehand and it will be required that the same formatting settings bet set when deserializing the
+            JsonTable data file.
+            </summary>
+            <param name="stream">JsonTable data stream that will be used to serialize data from the DataTable.</param>
+            <param name="dtTable">The DataTable object to be serialized to JsonTable data stream.</param>
+        </member>
+        <member name="M:Tiferix.Json.Serialization.JsonDataSetSerializer.SerializeDataTable(System.String,System.Data.DataTable)">
+            <summary>
+            Serializes the data in a DataTable to a Tiferix JsonTable data file.  The function will utilize the JsonDataWriter object to extract all data from the
+            DataTable and write it the appropriate format into the Tiferix.JsonTable data file.  Before serializing the DataTable, all formatting settings must be set 
+            in the JsonDataSetSerializer class beforehand and it will be required that the same formatting settings bet set when deserializing the
+            JsonTable data file.
+            </summary>
+            <param name="strFileName">The full name and path of the JsonTable data file that will be serialized with the data in the DataTable.</param>
+            <param name="dtTable">The DataTable object to be serialized to JsonTable data stream.</param>
+        </member>
+        <member name="M:Tiferix.Json.Serialization.JsonDataSetSerializer.SerializeDataRowValues(Tiferix.Json.Tools.JsonDataWriter,System.Data.DataRow)">
+            <summary>
+            Serializes the data in the current DataRow of the current DataTable to the JsonDataSet (or JsonTable) data stream being serialized in the
+            JsonDataSetSerializer class.   The JsonDataWriter object passed to the function will be positioned at the next record of the current table 
+            being written in the JsonDataSet data stream.  This function will use the JsonDataWriter to extract the field and value data out of the 
+            current DataRow and convert it to the appropriate values to store in the JsonDataSet data stream.
+            </summary>
+            <param name="jwrtData">JsonDataWriter object used for serializing DataSet/DataTable data to JsonDataSet/JsonTable data stream.</param>
+            <param name="rowData">The current row to be serialized to the JsonDataSet data stream.</param>
+        </member>
+        <member name="M:Tiferix.Json.Serialization.JsonDataSetSerializer.InitJsonDataWriter(Tiferix.Json.Tools.JsonDataWriter)">
+            <summary>
+            Initializes the JsonDataWriter object that will be used to serialize the DataSet with the default formatting, encoding and other serialization
+            settings that will be used for serializing the DataSet data to JsonDataSet data file.
+            </summary>
+            <param name="jwrtData">JsonDataWriter object used for serializing DataSet/DataTable data to JsonDataSet/JsonTable data stream.</param>
+        </member>
+    </members>
+</doc>

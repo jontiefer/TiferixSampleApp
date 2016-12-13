@@ -1,0 +1,74 @@
+﻿{
+  "Customers": [
+    {
+      "CustomerID": 1000,
+      "FirstName": "Joesph",
+      "LastName": "Castigon",
+      "Phone": "4085554090",      
+      "JoinDate": "1998-11-21T00:00:00Z"
+    },
+    {
+      "CustomerID": 1001,
+      "FirstName": "Thomas",
+      "LastName": "Reeds",
+      "Phone": "6175559200",
+      "JoinDate": "1999-04-15T00:00:00Z"
+    },
+    {
+      "CustomerID": 1002,
+      "FirstName": "Michelle",
+      "LastName": "Walters",
+      "Phone": "5105550930",
+      "JoinDate": "2002-10-04T00:00:00Z"
+    },
+    {
+      "CustomerID": 1003,
+      "FirstName": "Ryan",
+      "LastName": "Jones Jr.",
+      "Phone": "7145551209",
+      "JoinDate": "2002-12-10T00:00:00Z"
+    },
+    {
+      "CustomerID": 1004,
+      "FirstName": "Terry",
+      "LastName": "McIntyre",
+      "Phone": "2085551209",
+      "JoinDate": "2003-03-07T00:00:00Z"
+    },
+    {
+      "CustomerID": 1005,
+      "FirstName": "Lawrence",
+      "LastName": "Sashimoto",
+      "Phone": "4255550902",
+      "JoinDate": "2004-05-14T00:00:00Z"
+    },
+    {
+      "CustomerID": 1006,
+      "FirstName": "Jonathan",
+      "LastName": "Goldberg",
+      "Phone": "3105551743",
+      "JoinDate": "2004-12-14T00:00:00Z"
+    },
+    {
+      "CustomerID": 1007,
+      "FirstName": "Leroy",
+      "LastName": "Robinson",
+      "Phone": "7075559320",
+      "JoinDate": "2005-02-06T00:00:00Z"
+    },
+    {
+      "CustomerID": 1008,
+      "FirstName": "Jennifer",
+      "LastName": "Miles",
+      "Phone": "2125557721",
+      "JoinDate": "2006-07-07T00:00:00Z"
+    },
+    {
+      "CustomerID": 1009,
+      "FirstName": "Heather",
+      "LastName": "Zawmonski",
+      "Phone": "4085553371",
+      "JoinDate": "2007-11-03T00:00:00Z"
+    }    
+  ]
+}
