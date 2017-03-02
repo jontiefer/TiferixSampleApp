@@ -1,0 +1,661 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DotCoolControls.WinForms</name>
+    </assembly>
+    <members>
+        <member name="T:DotCoolControls.WinForms.DotCoolButton">
+            <summary>
+            The DotCoolButton is a button control that supports button of various shapes, as well as displays stunning visual effects.  Visual effects, include,  
+            but are not limited to various types customizable gradients, borders, images and text.  Both the effects and functionality of the button can be 
+            made to be state-specific, such as producing various effects for when the button is in a Normal or Disabled state, as well various types 
+            of mouse interactions, such as MouseDown and MouseOver events.
+            </summary>
+        </member>
+        <member name="M:DotCoolControls.WinForms.DotCoolButton.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="P:DotCoolControls.WinForms.DotCoolButton.BackGradientSettingsMouseDown">
+            <summary>
+            Background gradient settings of the DotCoolControl when the mouse button is pushed down on the control.
+            </summary>
+        </member>
+        <member name="P:DotCoolControls.WinForms.DotCoolButton.TextSettingsMouseDown">
+            <summary>
+            Text/Caption display settings of the DotCoolControl when the mouse button is pushed down on the control.
+            </summary>
+        </member>
+        <member name="P:DotCoolControls.WinForms.DotCoolButton.ImageSettingsMouseDown">
+            <summary>
+            Image display settings of the DotCoolControl when the mouse button is pushed down on the control.
+            </summary>
+        </member>
+        <member name="M:DotCoolControls.WinForms.DotCoolButton.OnResize(System.EventArgs)">
+            <summary>
+            The DotCoolButton will have its control border's sized to the bounds of the control.   Certain classes like the DotCoolButton and DotCoolLabel 
+            will control the size of the control's border from the DotCoolControl base class in the Resize event.  The control's border are not accessible to
+            the user in these types of controls.
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="P:DotCoolControls.WinForms.DotCoolButton.DrawFocusRect">
+            <summary>
+            Indicates where in the button the focus rectangle will be drawn when the control has focus.
+            </summary>
+        </member>
+        <member name="M:DotCoolControls.WinForms.DotCoolButton.Clone">
+            <summary>
+            Clones all properties and settings of the DotCoolButton control to a new DotCoolButton control.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:DotCoolControls.WinForms.DotCoolCheckBox">
+            <summary>    
+            The DotCoolCheckBox is a checkbox control that supports check boxes and check symbols of various shapes, as well as displays stunning visual
+            effects.  Visual effects, include, but are not limited to various types customizable gradients, borders, images and text.  In addition, custom images 
+            can be displayed for the check symbol.  Both the effects and functionality of the checkbox can be made to be state-specific, such as producing
+            various effects for when the button is in a Normal or Disabled state, as well various types of mouse interactions, such as MouseOver events.    
+            </summary>
+        </member>
+        <member name="E:DotCoolControls.WinForms.DotCoolCheckBox.CheckStateChanged">
+            <summary>
+            The event that is raised when the check state property of the DotCoolCheckBox control is changed.
+            </summary>
+        </member>
+        <member name="M:DotCoolControls.WinForms.DotCoolCheckBox.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="P:DotCoolControls.WinForms.DotCoolCheckBox.BorderColorSettings">
+            <summary>
+            Gets or sets the color of the control's border for each associated control state.
+            </summary>
+        </member>
+        <member name="M:DotCoolControls.WinForms.DotCoolCheckBox.GetImage">
+            <summary>
+            Gets the appropriate check symbol image that will be displayed in the box portion of the control based on the control's current state.
+            </summary>
+            <returns></returns>     
+        </member>
+        <member name="M:DotCoolControls.WinForms.DotCoolCheckBox.GetImageAlign">
+            <summary>
+            Gets the appropriate image alignment of the check symbol image displayed in the control based on the control's current state.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DotCoolControls.WinForms.DotCoolCheckBox.GetImageOffset">
+            <summary>
+            Gets the appropriate X and Y offset positions of the check symbol image displayed in the control based on the control's current state.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DotCoolControls.WinForms.DotCoolCheckBox.GetImageTransColor">
+            <summary>
+            Gets the appropriate transparent color of the check symbol image displayed in the control based on the control's current state.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DotCoolControls.WinForms.DotCoolCheckBox.GetCheckBorderColor">
+            <summary>
+            Gets the appropriate border color of the check symbol based on the control's current state.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:DotCoolControls.WinForms.DotCoolCheckBox.CheckBorderColorSettings">
+            <summary>
+            Gets or sets the color of the gradient check symbol's border for each associated control state.
+            </summary>
+        </member>
+        <member name="M:DotCoolControls.WinForms.DotCoolCheckBox.GetCheckGradientColor(System.Int32)">
+            <summary>
+            Gets the appropriate gradient start or ending color of the gradient check symbol based on the control's current state.
+            </summary>
+            <param name="iColorIndex">1 = Gradient Starting Color, 2 = Gradient Ending Color</param>
+            <returns></returns>
+        </member>
+        <member name="M:DotCoolControls.WinForms.DotCoolCheckBox.GetCheckGradientType">
+            <summary>
+            Gets the appropriate gradient type of the gradient check symbol based on the control's current state.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DotCoolControls.WinForms.DotCoolCheckBox.GetCheckGradientSpan">
+            <summary>
+            Gets the appropriate gradient span value of the gradient check symbol based on the control's current state.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DotCoolControls.WinForms.DotCoolCheckBox.GetCheckGradientOffset">
+            <summary>
+            Gets the appropriate gradient X and Y offset position of the gradient check symbol based on the control's current state.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:DotCoolControls.WinForms.DotCoolCheckBox.CheckGradientSettingsIndeterminate">
+            <summary>
+            Gradient settings of the check symbol portion of the control when the control is in an indeterminate state.
+            </summary>
+        </member>
+        <member name="P:DotCoolControls.WinForms.DotCoolCheckBox.ImageSettingsIndeterminate">
+            <summary>
+            Image display settings of the DotCoolControl when the control is in an indeterminate state.
+            </summary>
+        </member>
+        <member name="P:DotCoolControls.WinForms.DotCoolCheckBox.CheckState">
+            <summary>
+            Gets/Sets a value indicating if the check control is checked, unchecked or in an indeterminate state.
+            </summary>
+        </member>
+        <member name="P:DotCoolControls.WinForms.DotCoolCheckBox.Checked">
+            <summary>
+            Gets/Sets a value indicating if the check control is checked or unchecked.
+            </summary>
+        </member>
+        <member name="P:DotCoolControls.WinForms.DotCoolCheckBox.ThreeState">
+            <summary>
+            Gets/Sets a value indicating if the DotCoolCheckBox will allow three check states, rather than two.
+            </summary>
+        </member>
+        <member name="M:DotCoolControls.WinForms.DotCoolCheckBox.OnCheckStateChanged(System.EventArgs)">
+            <summary>
+            Raises the CheckStateChanged event of the DotCoolCheckBox control.
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:DotCoolControls.WinForms.DotCoolCheckBox.OnClick(System.EventArgs)">
+            <summary>
+            Raises the Click event of the control.  When the control is clicked, the state of the checkbox will be changed according to the current state 
+            the checkbox was set before it was clicked.  
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:DotCoolControls.WinForms.DotCoolCheckBox.OnDoubleClick(System.EventArgs)">
+            <summary>
+            The DotCoolCheckBox will not raise a DoubleClick event, so a double click on the control will result in the control raising a Click event, instead.
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:DotCoolControls.WinForms.DotCoolCheckBox.Clone">
+            <summary>
+            Clones all properties and settings of the DotCoolCheckBox control to a new DotCoolCheckBox control.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:DotCoolControls.WinForms.DotCoolCheckBoxBorderColorSettings">
+            <summary>
+            Contains the control border color setting propeties for a specific control state associated with a DotCoolCheckBox.  The control border color 
+            setting property set wil allow user's to access various border color settings from the property designer in an organized manner.  Each 
+            border color property setting will be linked to a border visual setting contained in a DotCoolCtlBorderSetingsList class.
+            </summary>
+        </member>
+        <member name="M:DotCoolControls.WinForms.DotCoolCheckBoxBorderColorSettings.#ctor(DotCoolControls.DotCoolCtlBorderSettingsList)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="BorderSettingsList"></param>
+        </member>
+        <member name="P:DotCoolControls.WinForms.DotCoolCheckBoxBorderColorSettings.BorderColorMouseDown">
+            <summary>
+            Gets or sets the color of the control's border when the mouse button is pushed down on the control.  Control state NOT USED for check controls.
+            </summary>
+        </member>
+        <member name="P:DotCoolControls.WinForms.DotCoolCheckBoxBorderColorSettings.BorderColorIndeterminate">
+            <summary>
+            Gets or sets the color of the control's border when the control is in an indeterminate state.
+            </summary>
+        </member>
+        <member name="T:DotCoolControls.WinForms.DotCoolLabel">
+            <summary>
+            The DotCoolLabel is a label control that supports button of various shapes, as well as displays stunning visual effects.  Visual effects, include,  
+            but are not limited to various types customizable gradients, borders, images and text.  Both the effects and functionality of the label can be 
+            made to be state-specific, such as producing various effects for when the label is in a Normal or Disabled state, as well various types 
+            of mouse interactions, such as MouseDown and MouseOver events.
+            </summary>
+        </member>
+        <member name="M:DotCoolControls.WinForms.DotCoolLabel.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="P:DotCoolControls.WinForms.DotCoolLabel.BackGradientSettingsMouseDown">
+            <summary>
+            Background gradient settings of the DotCoolControl when the mouse button is pushed down on the control.
+            </summary>
+        </member>
+        <member name="P:DotCoolControls.WinForms.DotCoolLabel.TextSettingsMouseDown">
+            <summary>
+            Text/Caption display settings of the DotCoolControl when the mouse button is pushed down on the control.
+            </summary>
+        </member>
+        <member name="P:DotCoolControls.WinForms.DotCoolLabel.ImageSettingsMouseDown">
+            <summary>
+            Image display settings of the DotCoolControl when the mouse button is pushed down on the control.
+            </summary>
+        </member>
+        <member name="M:DotCoolControls.WinForms.DotCoolLabel.OnResize(System.EventArgs)">
+            <summary>
+            The DotCoolLabel will have its control border's sized to the bounds of the control.   Certain classes like the DotCoolButton and DotCoolLabel 
+            will control the size of the control's border from the DotCoolControl base class in the Resize event.  The control's border are not accessible to
+            the user in these types of controls.
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="P:DotCoolControls.WinForms.DotCoolLabel.FocusOnClick">
+            <summary>
+            The DotCoolLabel control will never receive focus and cannot be selected.  PROPERTY IS READ ONLY.
+            </summary>
+        </member>
+        <member name="M:DotCoolControls.WinForms.DotCoolLabel.Clone">
+            <summary>
+            Clones all properties and settings of the DotCoolLabel control to a new DotCoolLabel control.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:DotCoolControls.WinForms.DotCoolNativeButton">
+            <summary>
+            An expansion of the native .NET button control that displays stunning visual effects.  Visual effects, include,  but are not limited to various types
+            customizable gradients and text.  Both the effects and functionality of the button can be made to be state-specific, such as producing various 
+            effects for when the button is in a Normal or Disabled state, as well various types of mouse interactions, such as MouseDown and MouseOver events.
+            </summary>
+        </member>
+        <member name="F:DotCoolControls.WinForms.DotCoolNativeButton.m_GradBackSettingsList">
+            <summary>
+            Contains the various gradient settings for the background of the DotCoolNativeButton class.
+            </summary>
+        </member>
+        <member name="F:DotCoolControls.WinForms.DotCoolNativeButton.m_TextSettingsList">
+            <summary>
+            Contains the various text and font settings for the caption displayed in the DotCoolNativeButton class.
+            </summary>
+        </member>
+        <member name="M:DotCoolControls.WinForms.DotCoolNativeButton.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:DotCoolControls.WinForms.DotCoolNativeButton.DrawGradientBackgroundImage">
+            <summary>
+            Draws the gradient background image of the DotCoolNativeButton according to the background gradient settings that are set for the control.
+            NOTE: The DotCoolNativeButton will use the button's background image, rather than the paint event handlers to render the background gradient 
+            image so that the button's native functionality can be maintained. 
+            </summary>
+        </member>
+        <member name="M:DotCoolControls.WinForms.DotCoolNativeButton.ClearGradientBackgroundImage">
+            <summary>
+            Clears the current gradient background image set in the DotCoolNativeButton. 
+            </summary>
+        </member>
+        <member name="P:DotCoolControls.WinForms.DotCoolNativeButton.Enabled">
+            <summary>
+            Gets or sets a value indicating whether the control can respond to user interaction.  
+            </summary>
+        </member>
+        <member name="P:DotCoolControls.WinForms.DotCoolNativeButton.DrawBackgroundGradient">
+            <summary>
+            Indicates if the background will be drawn with a gradient, using the background gradient settings set in the control.
+            </summary>
+        </member>
+        <member name="M:DotCoolControls.WinForms.DotCoolNativeButton.GetBackGradientColor(System.Int32)">
+            <summary>
+            Gets the appropriate background gradient start or ending color of the control based on the control's current state.
+            </summary>
+            <param name="iColorIndex">1 = Gradient Starting Color, 2 = Gradient Ending Color</param>
+            <returns></returns>
+        </member>
+        <member name="M:DotCoolControls.WinForms.DotCoolNativeButton.GetBackGradientType">
+            <summary>
+            Gets the appropriate background gradient type of the control based on the control's current state.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DotCoolControls.WinForms.DotCoolNativeButton.GetBackGradientSpan">
+            <summary>
+            Gets the appropriate background gradient span value of the control based on the control's current state.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DotCoolControls.WinForms.DotCoolNativeButton.GetBackGradientOffset">
+            <summary>
+            Gets the appropriate background gradient X and Y offset position of the control based on the control's current state.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DotCoolControls.WinForms.DotCoolNativeButton.GetBackGradientSettings(DotCoolControls.VisualSettings.VisualSettingEnum)">
+            <summary>
+            Gets the set of gradient background control settings for the control state specified in the function's setting parameter.
+            </summary>
+            <param name="setting"></param>
+            <returns></returns>
+        </member>
+        <member name="P:DotCoolControls.WinForms.DotCoolNativeButton.BackGradientSettings">
+            <summary>
+            Background gradient settings of the DotCoolNativeButton when the control is in its normal state.
+            </summary>
+        </member>
+        <member name="P:DotCoolControls.WinForms.DotCoolNativeButton.BackGradientSettingsDisabled">
+            <summary>
+            Background gradient settings of the DotCoolNativeButton when the control is in its disabled state.
+            </summary>
+        </member>
+        <member name="P:DotCoolControls.WinForms.DotCoolNativeButton.BackGradientSettingsMouseDown">
+            <summary>
+            Background gradient settings of the DotCoolNativeButton when the mouse button is pushed down on the control.
+            </summary>
+        </member>
+        <member name="P:DotCoolControls.WinForms.DotCoolNativeButton.BackGradientSettingsMouseOver">
+            <summary>
+            Background gradient settings of the DotCoolNativeButton when the mouse cursor is over the control.
+            </summary>
+        </member>
+        <member name="P:DotCoolControls.WinForms.DotCoolNativeButton.BackgroundImageLayout">
+            <summary>
+             Gets or sets the background image layout as defined in the System.Windows.Forms.ImageLayout
+              enumeration.                 
+            </summary>           
+        </member>
+        <member name="P:DotCoolControls.WinForms.DotCoolNativeButton.Font">
+            <summary>
+            Gets or sets the font of the text displayed in the button.
+            </summary>
+        </member>
+        <member name="P:DotCoolControls.WinForms.DotCoolNativeButton.ForeColor">
+            <summary>
+             Gets or sets the foreground color of the button.
+            </summary>
+        </member>
+        <member name="M:DotCoolControls.WinForms.DotCoolNativeButton.UpdateButtonText">
+            <summary>
+            Updates the font, color and other related settings of the caption of the DotCoolNativeButton with respect to the current state of the 
+            button.  The font, color and text display settings will depend on whether the button is in a normal state or if the mouse is 
+            being moved over the button or the button is currently pushed down.
+            </summary>
+        </member>
+        <member name="M:DotCoolControls.WinForms.DotCoolNativeButton.GetTextSettings(DotCoolControls.VisualSettings.VisualSettingEnum)">
+            <summary>
+            Gets the set of control text/caption settings for the control state specified in the function's setting parameter.
+            </summary>
+            <param name="setting"></param>
+            <returns></returns>
+        </member>
+        <member name="P:DotCoolControls.WinForms.DotCoolNativeButton.TextSettings">
+            <summary>
+            Text/Caption display settings of the DotCoolNativeButton when the control is in its normal state.
+            </summary>
+        </member>
+        <member name="P:DotCoolControls.WinForms.DotCoolNativeButton.TextSettingsDisabled">
+            <summary>
+            Text/Caption display settings of the DotCoolNativeButton when the control is in its disabled state.
+            </summary>
+        </member>
+        <member name="P:DotCoolControls.WinForms.DotCoolNativeButton.TextSettingsMouseDown">
+            <summary>
+            Text/Caption display settings of the DotCoolNativeButton when the mouse button is pushed down on the control.
+            </summary>
+        </member>
+        <member name="P:DotCoolControls.WinForms.DotCoolNativeButton.TextSettingsMouseOver">
+            <summary>
+            Text/Caption display settings of the DotCoolNativeButton when the mouse cursor is over the control.
+            </summary>
+        </member>
+        <member name="M:DotCoolControls.WinForms.DotCoolNativeButton.OnMouseEnter(System.EventArgs)">
+            <summary>
+            Overrides the OnMouseEnter event to handle the drawing of gradients and the button text when the mouse cursor moves 
+            over the button.
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:DotCoolControls.WinForms.DotCoolNativeButton.OnMouseLeave(System.EventArgs)">
+            <summary>
+            Overrides the OnMouseLeave event to handle the drawing of gradients and the button text when the mouse cursor moves 
+            outside the region of the button.
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:DotCoolControls.WinForms.DotCoolNativeButton.OnMouseDown(System.Windows.Forms.MouseEventArgs)">
+            <summary>
+            Overrides the OnMouseDown event to handle the drawing of gradients and the button text when the mouse's left button is 
+            pushed down on the button.
+            </summary>
+            <param name="mevent"></param>
+        </member>
+        <member name="M:DotCoolControls.WinForms.DotCoolNativeButton.OnMouseUp(System.Windows.Forms.MouseEventArgs)">
+            <summary>
+            Overrides the OnMouseUp event to handle the drawing of gradients and the button text when the mouse's left button is 
+            pushed up on the button.
+            </summary>
+            <param name="mevent"></param>
+        </member>
+        <member name="M:DotCoolControls.WinForms.DotCoolNativeButton.GradBackSettingsList_SettingChanged(DotCoolControls.VisualSettings.VisualSettingEnum,System.String,System.Object)">
+            <summary>
+            When any property contained in the background gradient settings list is changed, the SettingChanged event will be raised to allow the 
+            DotCoolNativeButton control to update the control's UI.  It is necessary to update the UI through the SettingChanged event since the 
+            DotCoolNativeButton control will manipulate specific text related properties of the .NET button control to integrate the DotCool visual 
+            text settings in the control.
+            </summary>
+            <param name="arg1"></param>
+            <param name="arg2"></param>
+            <param name="arg3"></param>
+        </member>
+        <member name="M:DotCoolControls.WinForms.DotCoolNativeButton.TextSettingsList_SettingChanged(DotCoolControls.VisualSettings.VisualSettingEnum,System.String,System.Object)">
+            <summary>
+            When any property contained in the text settings list is changed, the SettingChanged event will be raised to allow the 
+            DotCoolNativeButton control to update the control's UI.  It is necessary to update the UI through the SettingChanged event since the 
+            DotCoolNativeButton control is not owner-drawn and uses the derived .NET button control's background image property to draw its 
+            gradient background.
+            </summary>
+            <param name="arg1"></param>
+            <param name="arg2"></param>
+            <param name="arg3"></param>
+        </member>
+        <member name="T:DotCoolControls.WinForms.DotCoolPanel">
+            <summary>
+            An expansion of the native .NET panel control that displays stunning gradient effects.  Both the effects and functionality of the panel can be made to 
+            be state-specific, such as producing various effects for when the panel is in a Normal or Disabled state, as well various types of mouse 
+            interactions, such as MouseDown and MouseOver events.  The DotCoolPanel can also be used to display gradient backgrounds for 
+            DotCoolControls contained within the panel.
+            </summary>
+        </member>
+        <member name="F:DotCoolControls.WinForms.DotCoolPanel.m_GradBackSettingsList">
+            <summary>
+            Contains the various gradient settings for the background of the DotCoolPanel class.
+            </summary>
+        </member>
+        <member name="M:DotCoolControls.WinForms.DotCoolPanel.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="P:DotCoolControls.WinForms.DotCoolPanel.CreateParams">
+            <summary>
+            Gets the required creation parameters when the control handle is created.
+            </summary>
+        </member>
+        <member name="M:DotCoolControls.WinForms.DotCoolPanel.OnPaint(System.Windows.Forms.PaintEventArgs)">
+            <summary>
+            Handles all custom GDI/drawing/painting operations of the DotCoolPanel, including the drawing of the control's gradients.
+            </summary>
+            <param name="pevent"></param>
+        </member>
+        <member name="M:DotCoolControls.WinForms.DotCoolPanel.DrawBackGradientImage(System.Drawing.Graphics)">
+            <summary>
+            Draws the background gradient image in the control based on the various gradient settings that are set for the control.  All drawing will 
+            be performed in memory-based device context before rendering onto the control to allow for flicker-free drawing.
+            </summary>
+        </member>
+        <member name="P:DotCoolControls.WinForms.DotCoolPanel.Enabled">
+            <summary>
+            Gets or sets a value indicating whether the control can respond to user interaction.  
+            </summary>
+        </member>
+        <member name="M:DotCoolControls.WinForms.DotCoolPanel.OnMouseEnter(System.EventArgs)">
+            <summary>
+            
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:DotCoolControls.WinForms.DotCoolPanel.OnMouseLeave(System.EventArgs)">
+            <summary>
+            If the control's selection behavior is set to Control, then raises the MouseLeave event.  In the case the selection behavior is set to Border, the 
+            MouseLeave event will not be raised by the control unless the mouse was previously moved within the boundaries of the control's borders.
+            If it was detected that the mouse has moved within the boundaries of the control's border, then the MouseLeave event will be raised and the 
+            MouseOver flag will be set to false.
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:DotCoolControls.WinForms.DotCoolPanel.OnMouseMove(System.Windows.Forms.MouseEventArgs)">
+            <summary>
+            If the control's selection behavior is set to Control, then raises the MouseMove event.  In the case the control's selection behavior is set to 
+            Border, the MouseMove event will be used to detect if the mouse cursor has been moved within the boundaries of the control's border.  If the 
+            mouse cursor is detected within the border of the control, then the MouseMove event will be raised.  As well, the MouseEnter event will be 
+            raised from the MouseMove event when the mouse cursor first enters the boundaries of the control's border.
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:DotCoolControls.WinForms.DotCoolPanel.OnMouseDown(System.Windows.Forms.MouseEventArgs)">
+            <summary>
+            If the control's selection behavior is set to Control, then raises the MouseDown event.  In the case the selection behavior is set to Border, 
+            the MouseDown event will be raised only when the mouse button is pushed down while the mouse cursor is located within the boundaries 
+            of the control's border.
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:DotCoolControls.WinForms.DotCoolPanel.OnMouseUp(System.Windows.Forms.MouseEventArgs)">
+            <summary>
+            The <seealso cref="E:System.Windows.Forms.Control.MouseUp"/> event will be raised when the mouse button is released after being pushed down while the mouse cursor was located within the 
+            boundaries of the control's border.
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:DotCoolControls.WinForms.DotCoolPanel.OnClick(System.EventArgs)">
+            <summary>
+            The <seealso cref="E:System.Windows.Forms.Control.Click"/>  Click event will be raised when the mouse button is clicked within the boundaries of the control's border.
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:DotCoolControls.WinForms.DotCoolPanel.OnDoubleClick(System.EventArgs)">
+            <summary>
+            The <seealso cref="E:System.Windows.Forms.Control.DoubleClick"></seealso> event will be raised when the mouse button is double-clicked within the boundaries of the control's border.
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:DotCoolControls.WinForms.DotCoolPanel.GetBackGradientColor(System.Int32)">
+            <summary>
+            Gets the appropriate background gradient start or ending color of the control based on the control's current state.
+            </summary>
+            <param name="iColorIndex">1 = Gradient Starting Color, 2 = Gradient Ending Color</param>
+            <returns></returns>
+        </member>
+        <member name="M:DotCoolControls.WinForms.DotCoolPanel.GetBackGradientType">
+            <summary>
+            Gets the appropriate background gradient type of the control based on the control's current state.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DotCoolControls.WinForms.DotCoolPanel.GetBackGradientSpan">
+            <summary>
+            Gets the appropriate background gradient span value of the control based on the control's current state.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DotCoolControls.WinForms.DotCoolPanel.GetBackGradientOffset">
+            <summary>
+            Gets the appropriate background gradient X and Y offset position of the control based on the control's current state.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DotCoolControls.WinForms.DotCoolPanel.GetBackGradientSettings(DotCoolControls.VisualSettings.VisualSettingEnum)">
+            <summary>
+            Gets the set of gradient background control settings for the control state specified in the function's setting parameter.
+            </summary>
+            <param name="setting"></param>
+            <returns></returns>
+        </member>
+        <member name="P:DotCoolControls.WinForms.DotCoolPanel.BackGradientSettings">
+            <summary>
+            Background gradient settings of the DotCoolPanel when the control is in its normal state.
+            </summary>
+        </member>
+        <member name="P:DotCoolControls.WinForms.DotCoolPanel.BackGradientSettingsDisabled">
+            <summary>
+            Background gradient settings of the DotCoolPanel when the control is in its disabled state.
+            </summary>
+        </member>
+        <member name="P:DotCoolControls.WinForms.DotCoolPanel.BackGradientSettingsMouseOver">
+            <summary>
+            Background gradient settings of the DotCoolPanel when the mouse cursor is over the control.
+            </summary>
+        </member>
+        <member name="P:DotCoolControls.WinForms.DotCoolPanel.BackGradientSettingsMouseDown">
+            <summary>
+            Background gradient settings of the DotCoolPanel when the mouse button is pushed down on the control.
+            </summary>
+        </member>
+        <member name="T:DotCoolControls.WinForms.DotCoolRadioButton">
+            <summary>    
+            The DotCoolRadioButton is a radiobutton control that supports radio boxes and check symbols of various shapes, as well as displays stunning visual
+            effects.  Visual effects, include, but are not limited to various types customizable gradients, borders, images and text.  In addition, custom images 
+            can be displayed for the check symbol.  Both the effects and functionality of the radiobutton can be made to be state-specific, such as producing
+            various effects for when the button is in a Normal or Disabled state, as well various types of mouse interactions, such as MouseOver events.        
+            </summary>
+        </member>
+        <member name="M:DotCoolControls.WinForms.DotCoolRadioButton.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="P:DotCoolControls.WinForms.DotCoolRadioButton.BorderColorSettings">
+            <summary>
+            Gets or sets the color of the control's border for each associated control state.
+            </summary>
+        </member>
+        <member name="P:DotCoolControls.WinForms.DotCoolRadioButton.CheckBorderColorSettings">
+            <summary>
+            Gets or sets the color of the gradient check symbol's border for each associated control state.
+            </summary>
+        </member>
+        <member name="P:DotCoolControls.WinForms.DotCoolRadioButton.SelectOnFocus">
+            <summary>
+            Indicates if the radio button will be selected when it receives the focus.
+            </summary>
+        </member>
+        <member name="P:DotCoolControls.WinForms.DotCoolRadioButton.Checked">
+            <summary>
+            Gets/Sets a value indicating if the check control is checked or unchecked.
+            </summary>
+        </member>
+        <member name="M:DotCoolControls.WinForms.DotCoolRadioButton.UpdateGroupSelection">
+            <summary>
+            Updates the state of all DotCoolRadioButton controls that are contained in the same container as the DotCoolRadioButton control that 
+            is selected.  Only one radio button in the container can be selected at a time.
+            </summary>
+        </member>
+        <member name="M:DotCoolControls.WinForms.DotCoolRadioButton.OnClick(System.EventArgs)">
+            <summary>
+            Raises the Click event of the control.  When the control is clicked, the radio button will be selected and the previously selected radio button 
+            in the group (container control) will be deselected.
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:DotCoolControls.WinForms.DotCoolRadioButton.OnDoubleClick(System.EventArgs)">
+            <summary>
+            The DotCoolRadioButton will not raise a DoubleClick event, so a double click on the control will result in the control raising a Click event, instead.
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:DotCoolControls.WinForms.DotCoolRadioButton.OnGotFocus(System.EventArgs)">
+            <summary>
+            When the radio button control receives the focus and the SelectOnFocus property is set to true, the active radio button will be selected.
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:DotCoolControls.WinForms.DotCoolRadioButton.Clone">
+            <summary>
+            Clones all properties and settings of the DotCoolRadioButton control to a new DotCoolRadioButton control.
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

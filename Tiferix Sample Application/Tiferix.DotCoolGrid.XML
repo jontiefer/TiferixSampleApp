@@ -1,0 +1,263 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Tiferix.DotCoolGrid</name>
+    </assembly>
+    <members>
+        <member name="T:Tiferix.DotCoolGrid.DotCoolGridView">
+            <summary>
+            An expansion of the native .NET DataGridView control which has added stunning visual effects.  The DotCoolGridView has effects such as adjustable 
+            gradient column headers and background.  In addition, both the cells and column headers can utilize alpha-blending and display translucent color 
+            cells over the background.  Some other significant features include background images that can be merged both with gradient background and 
+            displayed behind alpha-blended cells, columns and rows.
+            </summary>
+        </member>
+        <member name="F:Tiferix.DotCoolGrid.DotCoolGridView.m_GradBackSettings">
+            <summary>
+            Contains the various gradient settings for the background of the DotCoolGridView class.
+            </summary>
+        </member>
+        <member name="F:Tiferix.DotCoolGrid.DotCoolGridView.m_ImageBackSettings">
+            <summary>
+            Contains the various image settings for the background of the DotCoolGridView class.
+            </summary>
+        </member>
+        <member name="F:Tiferix.DotCoolGrid.DotCoolGridView.m_GradColHdrSettings">
+            <summary>
+            Contains the various gradient settings for the column headers of the DotCoolGridView class.
+            </summary>
+        </member>
+        <member name="F:Tiferix.DotCoolGrid.DotCoolGridView.m_BorderColHdrSettings">
+            <summary>
+            Contains the various border settings for the column headers of the DotCoolGridView class.
+            </summary>
+        </member>
+        <member name="M:Tiferix.DotCoolGrid.DotCoolGridView.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="P:Tiferix.DotCoolGrid.DotCoolGridView.CreateParams">
+            <summary>
+            Encapsulates the information needed when creating a control.
+            </summary>
+        </member>
+        <member name="M:Tiferix.DotCoolGrid.DotCoolGridView.PaintBackground(System.Drawing.Graphics,System.Drawing.Rectangle,System.Drawing.Rectangle)">
+            <summary>        
+            Paints the background of the System.Windows.Forms.DataGridView.
+            This function is overridden in CoolGrid to allow for the custom gradient painting of the background.                
+            </summary>
+            <param name="graphics">The System.Drawing.Graphics used to paint the background.</param>
+            <param name="clipBounds">A System.Drawing.Rectangle that represents the area of the System.Windows.Forms.DataGridView
+            that needs to be painted.</param>
+            <param name="gridBounds">A System.Drawing.Rectangle that represents the area in which cells are drawn.</param>
+        </member>
+        <member name="M:Tiferix.DotCoolGrid.DotCoolGridView.OnCellPainting(System.Windows.Forms.DataGridViewCellPaintingEventArgs)">
+            <summary>                
+               Raises the System.Windows.Forms.DataGridView.CellPainting event.                
+               This function is overridden in CoolGrid to allow for the painting of gradient column headers and translucent headers and cells.
+            
+               Exceptions:
+              T:System.ArgumentOutOfRangeException:
+                The value of the System.Windows.Forms.DataGridViewCellPaintingEventArgs.ColumnIndex
+                property of e is greater than the number of columns in the control minus one.-or-The
+                value of the System.Windows.Forms.DataGridViewCellPaintingEventArgs.RowIndex
+                property of e is greater than the number of rows in the control minus one.
+            </summary>
+            <param name="e">A System.Windows.Forms.DataGridViewCellPaintingEventArgs that contains the event data.</param>        
+        </member>
+        <member name="M:Tiferix.DotCoolGrid.DotCoolGridView.DrawColHeaderSortGlyph(System.Windows.Forms.DataGridViewCellPaintingEventArgs,System.Windows.Forms.SortOrder)">
+            <summary>
+            Draws the sort indicator glyph graphic in the sorted column header of the grid when custom drawing of column headers is 
+            being used in the DotCoolGridView control.   The sort indicator will be custom drawn depending on the sort order set in the 
+            column, using a triangle that is filled with a linear gradient brush.
+            </summary>
+        </member>
+        <member name="P:Tiferix.DotCoolGrid.DotCoolGridView.ColumnHeadersDefaultCellStyle">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Tiferix.DotCoolGrid.DotCoolGridView.DrawBackgroundGradient">
+            <summary>
+            Indicates if the background will be drawn with a gradient, using the background gradient settings set in the control.
+            </summary>
+        </member>
+        <member name="P:Tiferix.DotCoolGrid.DotCoolGridView.BackgroundGradientColor1">
+            <summary>
+            The starting color in the gradient path to be used for drawing the DotCoolGridView's background gradient.  
+            </summary>        
+        </member>
+        <member name="P:Tiferix.DotCoolGrid.DotCoolGridView.BackgroundGradientColor2">
+            <summary>
+            The ending color in the gradient path to be used for drawing the DotCoolGridView's background gradient.  
+            </summary>
+        </member>
+        <member name="P:Tiferix.DotCoolGrid.DotCoolGridView.BackGradientType">
+            <summary>
+            Indicates the style/pattern to be used for drawing the DotCoolGridView's gradient background.
+            </summary>
+        </member>
+        <member name="P:Tiferix.DotCoolGrid.DotCoolGridView.BackGradientSpan">
+            <summary>
+            The span (size factor or expanse) of the gradient image to be used for drawing the DotCoolGridView's gradient background.
+            Certain types of gradients will look more appealing in a control when drawn on a larger or smaller expanse.  Most gradients will look  
+            ideal drawn with the default gradient span associated with the gradient type.
+            </summary>        
+        </member>
+        <member name="P:Tiferix.DotCoolGrid.DotCoolGridView.UseDefaultBackGradientSpan">
+            <summary>
+            Indicates if the default gradient span (size factor or expanse) associated with the selected gradient type used for drawing the DotCoolGridView's 
+            gradient background.  Every gradient type has a default gradient span setting that usually will look most ideal for
+            the type of gradient being drawn.  When this flag is set to true, the gradient span setting cannot be modified in the control, as the default 
+            value will be used.
+            </summary>        
+        </member>
+        <member name="P:Tiferix.DotCoolGrid.DotCoolGridView.BackGradientOffset">
+            <summary>
+            The X and Y offset position of the gradient image to be used for drawing the gradient background of the DotCoolGridView control.  Adjusting 
+            the offset position of the gradient alters the lighting and color range of the gradient image in the control.
+            </summary>        
+        </member>
+        <member name="P:Tiferix.DotCoolGrid.DotCoolGridView.DrawBackgroundImage">
+            <summary>
+            Indicates if a background image will be drawn for the control.
+            </summary>
+        </member>
+        <member name="P:Tiferix.DotCoolGrid.DotCoolGridView.BackgroundImage">
+            <summary>
+            Gets or sets the background image displayed in the control.
+            </summary>
+        </member>
+        <member name="P:Tiferix.DotCoolGrid.DotCoolGridView.BackgroundImageSizeMode">
+            <summary>
+            Indicates how the background image is displayed in the control.
+            </summary>
+        </member>
+        <member name="P:Tiferix.DotCoolGrid.DotCoolGridView.BackgroundImageAlign">
+            <summary>
+            Gets or sets the alignment of the image in the control.  Only works with Normal sized images.
+            </summary>
+        </member>
+        <member name="P:Tiferix.DotCoolGrid.DotCoolGridView.BackgroundImageOffset">
+            <summary>
+            Gets or sets the x and y offset position of the image in the control.  Only works with Normal sized images.
+            </summary>
+        </member>
+        <member name="P:Tiferix.DotCoolGrid.DotCoolGridView.BackgroundImageTransparent">
+            <summary>
+            Indicates if the background image will be drawn with transparency or as an opaque image.
+            </summary>
+        </member>
+        <member name="P:Tiferix.DotCoolGrid.DotCoolGridView.BackgroundImageTransColor">
+            <summary>
+            Gets or sets the color of the image to use for transparency in the control.
+            </summary>
+        </member>
+        <member name="P:Tiferix.DotCoolGrid.DotCoolGridView.DrawColHeaderGradient">
+            <summary>
+            Indicates if the column headers will be drawn with a gradient, using the column header gradient settings set in the control.
+            </summary>
+        </member>
+        <member name="P:Tiferix.DotCoolGrid.DotCoolGridView.ColHeaderGradientColor1">
+            <summary>
+            The starting color in the gradient path to be used for drawing the gradients of the column headers.
+            </summary>        
+        </member>
+        <member name="P:Tiferix.DotCoolGrid.DotCoolGridView.ColHeaderGradientColor2">
+            <summary>
+            The ending color in the gradient path to be used for drawing the gradients of the column headers.
+            </summary>        
+        </member>
+        <member name="P:Tiferix.DotCoolGrid.DotCoolGridView.ColHeaderGradientType">
+            <summary>
+            Indicates the style/pattern to be used for drawing the gradient backgrounds of the column headers.
+            </summary>
+        </member>
+        <member name="P:Tiferix.DotCoolGrid.DotCoolGridView.ColHeaderGradientSpan">
+            <summary>
+            The span (size factor or expanse) of the gradient image to be used for drawing the gradient backgrounds of the column headers.
+            Certain types of gradients will look more appealing in a control when drawn on a larger or smaller expanse.  Most gradients will look  
+            ideal drawn with the default gradient span associated with the gradient type.
+            </summary>        
+        </member>
+        <member name="P:Tiferix.DotCoolGrid.DotCoolGridView.UseDefaultColHeaderGradientSpan">
+            <summary>
+            Indicates if the default gradient span (size factor or expanse) associated with the selected gradient type used for drawing the gradient 
+            background of the column headers.  Every gradient type has a default gradient span setting that usually will look most ideal for
+            the type of gradient being drawn.  When this flag is set to true, the gradient span setting cannot be modified in the control, as the default 
+            value will be used.
+            </summary>        
+        </member>
+        <member name="P:Tiferix.DotCoolGrid.DotCoolGridView.ColHeaderGradientOffset">
+            <summary>
+            The X and Y offset position of the gradient image to be used for drawing the gradient background of the column headers.  Adjusting 
+            the offset position of the gradient alters the lighting and color range of the gradient image in the control.
+            </summary>        
+        </member>
+        <member name="P:Tiferix.DotCoolGrid.DotCoolGridView.ColHeaderGradientBorderColor">
+            <summary>
+            The border color which will be used for drawing the borders of column headers with gradient backgrounds.
+            </summary>        
+        </member>
+        <member name="P:Tiferix.DotCoolGrid.DotCoolGridView.ColHeaderGradientBorderWidth">
+            <summary>
+            The width of the borders to be drawn around column headers with gradient backgrounds.
+            </summary>        
+        </member>
+        <member name="P:Tiferix.DotCoolGrid.DotCoolGridView.ColHeadersFont">
+            <summary>
+            The font to use for drawing text in the column headers.  Due to a bug in the DataGridView control when custom painting 
+            is invoked, it will be neccessary to use the ColHeadersFont function to serialize font settings. 
+            </summary>
+        </member>
+        <member name="P:Tiferix.DotCoolGrid.DotCoolGridView.DrawColHeaderTransColor">
+            <summary>
+            Indicates if the column headers will be drawn with a translucent (semi-transparent) color over the background of the CoolGrid.
+            </summary>
+        </member>
+        <member name="P:Tiferix.DotCoolGrid.DotCoolGridView.ColHeaderTransColor">
+            <summary>
+            The translucent (semi-transparent) color to be used for drawing the backgrounds of column headers.  
+            </summary>
+        </member>
+        <member name="P:Tiferix.DotCoolGrid.DotCoolGridView.ColHeaderTransAlpha">
+            <summary>
+            The alpha value to be used for drawing translucent (semi-transparent) column headers in the CoolGrid.  
+            Values range from 0 (transparent) to 255 (opaque).
+            </summary>
+        </member>
+        <member name="P:Tiferix.DotCoolGrid.DotCoolGridView.DrawCellTransColor">
+            <summary>
+            Indicates if the cells will be drawn with a translucent (semi-transparent) color over the background of the CoolGrid.
+            </summary>
+        </member>
+        <member name="P:Tiferix.DotCoolGrid.DotCoolGridView.CellTransColor">
+            <summary>
+            The translucent (semi-transparent) color to be used for drawing the backgrounds of cells in the grid.
+            </summary>
+        </member>
+        <member name="P:Tiferix.DotCoolGrid.DotCoolGridView.CellTransAlpha">
+            <summary>
+            The alpha value to be used for drawing translucent (semi-transparent) cells in the CoolGrid.  
+            Values range from 0 (transparent) to 255 (opaque).
+            </summary>
+        </member>
+        <member name="P:Tiferix.DotCoolGrid.DotCoolGridView.DrawSelectedCellTransColor">
+            <summary>
+            Indicates if the selected cells will be drawn with a translucent (semi-transparent) color over the background of the CoolGrid.
+            </summary>
+        </member>
+        <member name="P:Tiferix.DotCoolGrid.DotCoolGridView.SelectedCellTransColor">
+            <summary>
+            The translucent (semi-transparent) color to be used for drawing the backgrounds of selected cells in the grid.
+            </summary>
+        </member>
+        <member name="P:Tiferix.DotCoolGrid.DotCoolGridView.SelectedCellTransAlpha">
+            <summary>
+            The alpha value to be used for drawing translucent (semi-transparent) selected cells in the CoolGrid.  
+            Values range from 0 (transparent) to 255 (opaque).
+            </summary>
+        </member>
+    </members>
+</doc>
